@@ -1,10 +1,10 @@
 abstract public class Unit extends Tile {
-    private String name;
-    private Level currentlevel;
-    private int healthPool;
-    private int healthAmount;
-    private int attack;
-    private int defence;
+    protected String name;
+    protected Level currentlevel;
+    protected int healthPool;
+    protected int healthAmount;
+    protected int attack;
+    protected int defence;
 
     public Unit(int x, int y, char tile,String name, Level currentlevel, int healthPool, int healthAmount,int attack, int defence){
         super(tile,x,y);

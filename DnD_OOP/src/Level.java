@@ -170,4 +170,8 @@ public class Level {
                 throw new IllegalArgumentException();
         }
     }
+
+    public Tile[][] getTiles(){
+        return tiles;
+    }
 }

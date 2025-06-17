@@ -1,6 +1,6 @@
 public class Player extends Unit implements MovableUnit, HeroicUnit {
-    private int experience;
-    private int level;
+    protected int experience;
+    protected int level;
 
     public Player(int x, int y, char tile, String name, Level currentLevel, int healthPool, int healthAmount, int attack, int defence, int experience, int level) {
         super(x, y, tile, name, currentLevel, healthPool, healthAmount, attack, defence);
@@ -15,7 +15,7 @@ public class Player extends Unit implements MovableUnit, HeroicUnit {
 
     @Override
     public void moveUp() {
-
+        
     }
 
     @Override

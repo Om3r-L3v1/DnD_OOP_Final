@@ -1,7 +1,7 @@
 abstract public class Tile {
-    private int x;
-    private int y;
-    private char tile;
+    protected int x;
+    protected int y;
+    protected char tile;
 
     public Tile(char tile, int x, int y){
         this.x = x;
