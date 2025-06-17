@@ -1,3 +1,5 @@
+import java.util.Random;
+
 public class Player extends Unit implements MovableUnit, HeroicUnit {
     protected int experience;
     protected int level;
@@ -32,4 +34,26 @@ public class Player extends Unit implements MovableUnit, HeroicUnit {
     public void moveRight() {
 
     }
+    @Override
+    public void defend(Player p){}
+    @Override
+    public void defend(Enemy m){
+
+        //monster name is attacking player name
+        //you role the attack you got x
+        //the defender roled y
+        Random rnd = new Random();
+        int damage = rnd.nextInt(m.attack+1);
+        int defence = rnd.nextInt(this.defence+1);
+        if(healthAmount-damage+defence<=0) {
+            healthAmount = 0;
+            currentlevel.getEnemies().remove(this);
+        }
+        else if(defence<damage)
+            healthAmount -= damage-defence;
+        //damage of damage - defence caused
+        //health remaining
+
+    }
+
 }
