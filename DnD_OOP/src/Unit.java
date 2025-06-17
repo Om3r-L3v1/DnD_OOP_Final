@@ -1,15 +1,56 @@
 abstract public class Unit extends Tile {
     private String name;
-    private Integer healthPool;
-    private Integer healthAmount;
-    private Integer attack;
-    private Integer defence;
-    public Unit(Integer x, Integer y, char tile,String name, Integer healthPool, Integer healthAmount,Integer attack, Integer defence){
+    private int healthPool;
+    private int healthAmount;
+    private int attack;
+    private int defence;
+
+    public Unit(int x, int y, char tile,String name, int healthPool, int healthAmount,int attack, int defence){
         super(tile,x,y);
         this.name = name;
         this.healthAmount = healthAmount;
         this.healthPool = healthPool;
         this.attack = attack;
+        this.defence = defence;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getHealthPool() {
+        return healthPool;
+    }
+
+    public void setHealthPool(int healthPool) {
+        this.healthPool = healthPool;
+    }
+
+    public int getHealthAmount() {
+        return healthAmount;
+    }
+
+    public void setHealthAmount(int healthAmount) {
+        this.healthAmount = healthAmount;
+    }
+
+    public int getAttack() {
+        return attack;
+    }
+
+    public void setAttack(int attack) {
+        this.attack = attack;
+    }
+
+    public int getDefence() {
+        return defence;
+    }
+
+    public void setDefence(int defence) {
         this.defence = defence;
     }
 }
