@@ -1,5 +1,6 @@
 abstract public class Unit extends Tile {
     private String name;
+    private Level level;
     private int healthPool;
     private int healthAmount;
     private int attack;
@@ -12,6 +13,7 @@ abstract public class Unit extends Tile {
         this.healthPool = healthPool;
         this.attack = attack;
         this.defence = defence;
+        this.level = level;
     }
 
     public String getName() {

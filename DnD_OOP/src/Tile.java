@@ -6,6 +6,7 @@ abstract public class Tile {
         this.x = x;
         this.y = y;
         this.tile = tile;
+
     }
     private int GetRange(Tile t){
         return (int)Math.sqrt(Math.pow(t.x-x,2)+Math.pow(t.y-y,2));

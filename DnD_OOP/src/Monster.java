@@ -1,7 +1,7 @@
-public class Monster extends Enemy implements MovableUnit {
+public class Monster extends Enemy {
     private int visionRange;
     public Monster(int x, int y, char tile, String name, int healthPool, int healthAmount, int attack, int defence, int expValue, int visionRange) {
-        super(x,y,tile,name,healthPool,healthAmount,attack,defence,expValue);
+        super(x,y,tile,name,healthPool,healthAmount,attack,defence,expValue,level);
         this.visionRange = visionRange;
     }
 
