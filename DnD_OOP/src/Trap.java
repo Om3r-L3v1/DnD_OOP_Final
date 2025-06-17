@@ -2,8 +2,8 @@ public class Trap extends Enemy {
     private int visibalityTime;
     private int invisibalityTime;
     private int ticksCount;
-    boolean visible;
-    final int visionRange = 2;
+    private boolean visible;
+    private final int attackRange = 2;
 
     public Trap(int x, int y, char tile, String name, Level currentLevel, int healthPool, int healthAmount, int attack, int defence, int expValue,
                    int visibalityTime, int invisibalityTime) {

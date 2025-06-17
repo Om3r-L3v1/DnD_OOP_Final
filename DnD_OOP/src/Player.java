@@ -15,7 +15,7 @@ public class Player extends Unit implements MovableUnit, HeroicUnit {
 
     @Override
     public void moveUp() {
-        
+
     }
 
     @Override

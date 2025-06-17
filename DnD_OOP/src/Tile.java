@@ -21,4 +21,7 @@ abstract public class Tile {
     public int getY(){return y;}
 
     public void setY(int y){this.y = y;}
+
+    public abstract boolean canMoveOn(Player p);
+    public abstract boolean canMoveOn(Monster m);
 }
