@@ -5,4 +5,8 @@ public class Enemy extends Unit {
         super(x,y,tile,name,currentLevel,healthPool,healthAmount,attack,defence);
         this.expValue = expValue;
     }
+
+    public void takeTurn(){
+
+    }
 }
