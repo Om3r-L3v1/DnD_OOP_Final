@@ -1,19 +1,19 @@
 abstract public class Unit extends Tile {
     private String name;
-    private Level level;
+    private Level currentlevel;
     private int healthPool;
     private int healthAmount;
     private int attack;
     private int defence;
 
-    public Unit(int x, int y, char tile,String name, int healthPool, int healthAmount,int attack, int defence){
+    public Unit(int x, int y, char tile,String name, Level currentlevel, int healthPool, int healthAmount,int attack, int defence){
         super(tile,x,y);
         this.name = name;
         this.healthAmount = healthAmount;
         this.healthPool = healthPool;
         this.attack = attack;
         this.defence = defence;
-        this.level = level;
+        this.currentlevel = currentlevel;
     }
 
     public String getName() {
