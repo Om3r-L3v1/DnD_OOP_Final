@@ -3,13 +3,16 @@ public class Trap extends Enemy {
     private Integer invisibalityTime;
     private Integer ticksCount;
     boolean visible;
+    final int visionRange = 2;
+    private Level level;
 
     public Trap(Integer x, Integer y, char tile, String name, Integer healthPool, Integer healthAmount, Integer attack, Integer defence, Integer expValue,
-                   Integer visibalityTime, Integer invisibalityTime, Integer ticksCount, boolean visible) {
-        super(x,y,tile,name,healthPool,healthAmount,attack,defence,expValue);
+                   Integer visibalityTime, Integer invisibalityTime,Level level) {
+        super(x,y,tile,name,healthPool,healthAmount,attack,defence,expValue,level);
         this.visibalityTime = visibalityTime;
         this.invisibalityTime = invisibalityTime;
-        this.ticksCount = ticksCount;
-        this.visible = visible;
+        this.visible = true;
+        this.ticksCount = 0;
+        this.level = level;
     }
 }
