@@ -1,11 +1,12 @@
 import java.util.Random;
 
-public class Player extends Unit implements MovableUnit, HeroicUnit {
+public abstract class Player extends Unit implements HeroicUnit {
+    public static final char PLAYER_CHAR = '@';
     protected int experience;
     protected int level;
 
-    public Player(int x, int y, char tile, String name, Level currentLevel, int healthPool, int healthAmount, int attack, int defence, int experience, int level) {
-        super(x, y, tile, name, currentLevel, healthPool, healthAmount, attack, defence);
+    public Player(int x, int y, String name, Level currentLevel, int healthPool, int healthAmount, int attack, int defence, int experience, int level) {
+        super(x, y, PLAYER_CHAR, name, currentLevel, healthPool, healthAmount, attack, defence);
         this.experience = experience;
         this.level = level;
     }
@@ -16,23 +17,19 @@ public class Player extends Unit implements MovableUnit, HeroicUnit {
     }
 
     @Override
-    public void moveUp() {
-
+    public boolean canMoveOn(Player p){
+        return false;
     }
 
     @Override
-    public void moveDown() {
-
+    public boolean canMoveOn(Monster m){
+        this.defend(m);
+        return healthAmount == 0;
     }
 
     @Override
-    public void moveLeft() {
-
-    }
-
-    @Override
-    public void moveRight() {
-
+    public boolean canMoveTo(Tile target){
+        return target.canMoveOn(this);
     }
     @Override
     public void defend(Player p){}
@@ -41,17 +38,13 @@ public class Player extends Unit implements MovableUnit, HeroicUnit {
 
         //monster name is attacking player name
         //you role the attack you got x
-        //the defender roled y
+        //the defender rolled y
         Random rnd = new Random();
         int damage = rnd.nextInt(m.attack+1);
         int defence = rnd.nextInt(this.defence+1);
-        if(healthAmount-damage+defence<=0) {
-            healthAmount = 0;
-            currentlevel.getEnemies().remove(this);
-        }
-        else if(defence<damage)
-            healthAmount -= damage-defence;
-        //damage of damage - defence caused
+        if(defence<damage)
+            setHealthAmount(healthAmount - (damage - defence));
+        //damage of (damage - defence) caused
         //health remaining
 
     }

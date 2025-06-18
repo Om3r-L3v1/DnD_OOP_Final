@@ -1,6 +1,6 @@
 import java.util.Random;
 
-public class Enemy extends Unit {
+public abstract class Enemy extends Unit {
     int expValue;
 
     public Enemy(int x, int y, char tile, String name, Level currentLevel, int healthPool, int healthAmount, int attack, int defence, int expValue) {
@@ -15,13 +15,9 @@ public class Enemy extends Unit {
         Random rnd = new Random();
         int damage = rnd.nextInt(p.attack+1);
         int defence = rnd.nextInt(this.defence+1);
-        if(healthAmount-damage+defence<=0) {
-            healthAmount = 0;
-            currentlevel.getEnemies().remove(this);
-        }
-        else if(defence<damage)
-            healthAmount -= damage-defence;
-        //damage of damage - defence caused
+        if(defence<damage)
+            setHealthAmount(healthAmount - (damage - defence));
+        //damage of (damage - defence) caused
         //health remaining
     }
     @Override
@@ -30,5 +26,25 @@ public class Enemy extends Unit {
     }
     public void takeTurn(){
 
+    }
+
+    @Override
+    public boolean canMoveOn(Player p){
+        this.defend(p);
+        return healthAmount == 0;
+    }
+
+    @Override
+    public boolean canMoveOn(Monster m){
+        return false;
+    }
+
+    @Override
+    public void setHealthAmount(int healthAmount){
+        super.setHealthAmount(healthAmount);
+        if(healthAmount == 0){
+            currentlevel.getEnemies().remove(this);
+            currentlevel.getTiles()[x][y] = new Empty(x, y);
+        }
     }
 }

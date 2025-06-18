@@ -13,4 +13,9 @@ public class Trap extends Enemy {
         this.visible = true;
         this.ticksCount = 0;
     }
+
+    @Override
+    public boolean canMoveTo(Tile target){
+        return false;
+    }
 }

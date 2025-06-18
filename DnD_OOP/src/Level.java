@@ -155,13 +155,13 @@ public class Level {
                 Trap deathTrap = new Trap(x, y, c, "Death Trap", this, 500, 500, 100, 20, 250, 1, 10);
                 enemies.add(deathTrap);
                 return deathTrap;
-            case '.':
-                Empty empty = new Empty(x, y, c);
+            case Empty.EMPTY_CHAR:
+                Empty empty = new Empty(x, y);
                 return empty;
-            case '#':
-                Wall wall = new Wall(x, y, c);
+            case Wall.WALL_CHAR:
+                Wall wall = new Wall(x, y);
                 return wall;
-            case '@':
+            case Player.PLAYER_CHAR:
                 player.setX(x);
                 player.setY(y);
                 return player;

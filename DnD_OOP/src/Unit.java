@@ -16,6 +16,54 @@ abstract public class Unit extends Tile {
         this.currentlevel = currentlevel;
     }
 
+    public void moveUp() {
+        if(y != 0){
+            Tile[][] tiles = currentlevel.getTiles();
+            Tile target = tiles[x][y - 1];
+            if(canMoveTo(target)){
+                tiles[x][y] = new Empty(x, y);
+                tiles[x][y - 1] = this;
+                y--;
+            }
+        }
+    }
+
+    public void moveDown() {
+        if(y != currentlevel.getTiles()[0].length){
+            Tile[][] tiles = currentlevel.getTiles();
+            Tile target = tiles[x][y + 1];
+            if(canMoveTo(target)){
+                tiles[x][y] = new Empty(x, y);
+                tiles[x][y + 1] = this;
+                y++;
+            }
+        }
+    }
+
+    public void moveLeft() {
+        if(x != 0){
+            Tile[][] tiles = currentlevel.getTiles();
+            Tile target = tiles[x - 1][y];
+            if(canMoveTo(target)){
+                tiles[x][y] = new Empty(x, y);
+                tiles[x - 1][y] = this;
+                x--;
+            }
+        }
+    }
+
+    public void moveRight() {
+        if(x != currentlevel.getTiles().length){
+            Tile[][] tiles = currentlevel.getTiles();
+            Tile target = tiles[x + 1][y];
+            if(canMoveTo(target)){
+                tiles[x][y] = new Empty(x, y);
+                tiles[x + 1][y] = this;
+                x++;
+            }
+        }
+    }
+
     public String getName() {
         return name;
     }
@@ -37,7 +85,7 @@ abstract public class Unit extends Tile {
     }
 
     public void setHealthAmount(int healthAmount) {
-        this.healthAmount = healthAmount;
+        this.healthAmount = Math.max(0, Math.min(getHealthPool(), healthAmount));
     }
 
     public int getAttack() {
@@ -58,4 +106,6 @@ abstract public class Unit extends Tile {
 
     public abstract void defend(Player p);
     public abstract void defend(Enemy m);
+
+    public abstract boolean canMoveTo(Tile target);
 }
