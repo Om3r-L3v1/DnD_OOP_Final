@@ -1,3 +1,5 @@
+import java.util.Random;
+
 public abstract class Player extends Unit implements HeroicUnit {
     public static final char PLAYER_CHAR = '@';
     protected int experience;
@@ -29,4 +31,22 @@ public abstract class Player extends Unit implements HeroicUnit {
     public boolean canMoveTo(Tile target){
         return target.canMoveOn(this);
     }
+    @Override
+    public void defend(Player p){}
+    @Override
+    public void defend(Enemy m){
+
+        //monster name is attacking player name
+        //you role the attack you got x
+        //the defender rolled y
+        Random rnd = new Random();
+        int damage = rnd.nextInt(m.attack+1);
+        int defence = rnd.nextInt(this.defence+1);
+        if(defence<damage)
+            setHealthAmount(healthAmount - (damage - defence));
+        //damage of (damage - defence) caused
+        //health remaining
+
+    }
+
 }

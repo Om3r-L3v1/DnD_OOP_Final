@@ -174,4 +174,5 @@ public class Level {
     public Tile[][] getTiles(){
         return tiles;
     }
+    public List<Enemy> getEnemies(){return enemies;}
 }

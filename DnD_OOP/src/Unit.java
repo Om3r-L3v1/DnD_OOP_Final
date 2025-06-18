@@ -85,7 +85,7 @@ abstract public class Unit extends Tile {
     }
 
     public void setHealthAmount(int healthAmount) {
-        this.healthAmount = healthAmount;
+        this.healthAmount = Math.max(0, Math.min(getHealthPool(), healthAmount));
     }
 
     public int getAttack() {
@@ -105,8 +105,7 @@ abstract public class Unit extends Tile {
     }
 
     public abstract void defend(Player p);
-    public abstract void defend(Monster m);
-    public abstract void defend(Trap t);
+    public abstract void defend(Enemy m);
 
     public abstract boolean canMoveTo(Tile target);
 }

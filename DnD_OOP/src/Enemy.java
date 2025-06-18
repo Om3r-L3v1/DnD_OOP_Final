@@ -1,3 +1,5 @@
+import java.util.Random;
+
 public abstract class Enemy extends Unit {
     int expValue;
 
@@ -5,7 +7,23 @@ public abstract class Enemy extends Unit {
         super(x,y,tile,name,currentLevel,healthPool,healthAmount,attack,defence);
         this.expValue = expValue;
     }
+    @Override
+    public void defend(Player p){
+        //player name is attacking monster name
+        //you role the attack you got x
+        //the defender roled y
+        Random rnd = new Random();
+        int damage = rnd.nextInt(p.attack+1);
+        int defence = rnd.nextInt(this.defence+1);
+        if(defence<damage)
+            setHealthAmount(healthAmount - (damage - defence));
+        //damage of (damage - defence) caused
+        //health remaining
+    }
+    @Override
+    public void defend(Enemy m){
 
+    }
     public void takeTurn(){
 
     }
@@ -19,5 +37,14 @@ public abstract class Enemy extends Unit {
     @Override
     public boolean canMoveOn(Monster m){
         return false;
+    }
+
+    @Override
+    public void setHealthAmount(int healthAmount){
+        super.setHealthAmount(healthAmount);
+        if(healthAmount == 0){
+            currentlevel.getEnemies().remove(this);
+            currentlevel.getTiles()[x][y] = new Empty(x, y);
+        }
     }
 }
