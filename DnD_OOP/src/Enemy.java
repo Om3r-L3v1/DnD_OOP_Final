@@ -1,4 +1,4 @@
-public class Enemy extends Unit {
+public abstract class Enemy extends Unit {
     int expValue;
 
     public Enemy(int x, int y, char tile, String name, Level currentLevel, int healthPool, int healthAmount, int attack, int defence, int expValue) {
@@ -8,5 +8,16 @@ public class Enemy extends Unit {
 
     public void takeTurn(){
 
+    }
+
+    @Override
+    public boolean canMoveOn(Player p){
+        this.defend(p);
+        return healthAmount == 0;
+    }
+
+    @Override
+    public boolean canMoveOn(Monster m){
+        return false;
     }
 }
