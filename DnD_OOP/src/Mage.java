@@ -47,6 +47,10 @@ public class Mage extends Player{
             hits++;
         }
     }
+    @Override
+    public void gameTick(){
+        chargeMana(level);
+    }
 
     @Override
     protected void levelUp(){

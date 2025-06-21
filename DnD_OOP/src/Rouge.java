@@ -31,6 +31,10 @@ public class Rouge extends Player {
             }
         }
     }
+    @Override
+    public void gameTick(){
+        currentEnergy = Math.min(energyMax,currentEnergy+10);
+
 
     @Override
     protected void levelUp(){

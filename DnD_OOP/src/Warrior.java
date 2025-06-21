@@ -34,10 +34,15 @@ public class Warrior extends Player{
             }
         }
     }
+    @Override
+    public void gameTick(){
+        remainingCoolDown=Math.max(0,remainingCoolDown-1);
+    }
     public boolean canCast(){
         if(remainingCooldown == 0) return true;
         return false;
     }
+
 
     @Override
     protected void levelUp(){

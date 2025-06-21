@@ -42,6 +42,12 @@ public class Hunter extends Player{
         Enemy target = closest.get(rnd.nextInt(closest.size()));
         target.defend(this, attack);
     }
+    @Override
+    public void gameTick(){
+        if(ticksCount==10){
+            ticksCount = 0;
+            arrowsCount+=level;
+        }else ticksCount++;
 
     @Override
     protected void levelUp(){
