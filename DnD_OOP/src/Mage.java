@@ -41,7 +41,7 @@ public class Mage extends Player{
         }
         int regAttack = attack;
         attack = spellPower;
-        while(hits < hitsCount ^ !inRangeEnemies.isEmpty()){
+        while(hits < hitsCount && !inRangeEnemies.isEmpty()){
             Enemy target = inRangeEnemies.get(rnd.nextInt(inRangeEnemies.size()));
             target.defend(this);
             if(target.getHealthAmount() == 0)
