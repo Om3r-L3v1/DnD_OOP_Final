@@ -20,34 +20,39 @@ public class Hunter extends Player{
 
     @Override
     public void castAbility(){
-        if(arrowsCount == 0){ //or no one in range
-            //print
-            return;
-        }
-        arrowsCount--;
-        Random rnd = new Random();
-        List<Enemy> closest = new LinkedList<>();
-        int closestRange = -1;
-        for(Enemy e : currentlevel.getEnemies()) {
-            int enemyRange = getRange(e);
-            if(enemyRange <= range) {
-                if(enemyRange == closestRange)
-                    closest.add(e);
-                else if (enemyRange < range) {
-                    closest = new LinkedList<>();
-                    closest.add(e);
+        if(canCast()){
+            arrowsCount--;
+            Random rnd = new Random();
+            List<Enemy> closest = new LinkedList<>();
+            int closestRange = -1;
+            for(Enemy e : currentlevel.getEnemies()) {
+                int enemyRange = getRange(e);
+                if(enemyRange <= range) {
+                    if(enemyRange == closestRange)
+                        closest.add(e);
+                    else if (enemyRange < range) {
+                        closest = new LinkedList<>();
+                        closest.add(e);
+                    }
                 }
             }
+            Enemy target = closest.get(rnd.nextInt(closest.size()));
+            target.defend(this, attack);
         }
-        Enemy target = closest.get(rnd.nextInt(closest.size()));
-        target.defend(this, attack);
     }
     @Override
-    public void gameTick(){
-        if(ticksCount==10){
+    protected boolean canCast(){
+        return arrowsCount > 0 && !getEnemiesInRange(range, true).isEmpty();
+    }
+
+    @Override
+    public void gameTick() {
+        if (ticksCount == 10) {
             ticksCount = 0;
-            arrowsCount+=level;
-        }else ticksCount++;
+            arrowsCount += level;
+        }
+        else ticksCount++;
+    }
 
     @Override
     protected void levelUp(){

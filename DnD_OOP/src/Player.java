@@ -1,3 +1,5 @@
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Random;
 
 public abstract class Player extends Unit implements HeroicUnit {
@@ -14,8 +16,10 @@ public abstract class Player extends Unit implements HeroicUnit {
 
     @Override
     public void castAbility() {
-        
+
     }
+
+    protected abstract boolean canCast();
 
     @Override
     public boolean canMoveOn(Player p){
@@ -76,5 +80,16 @@ public abstract class Player extends Unit implements HeroicUnit {
     @Override
     public String getAbilityName(){
         return abilityName;
+    }
+
+    protected List<Enemy> getEnemiesInRange(int range, boolean inclusive){
+        List<Enemy> inRangeEnemies = new LinkedList<>();
+        for(Enemy e : currentlevel.getEnemies()){
+            int enemyRange = getRange(e);
+            if(enemyRange < range || (inclusive && enemyRange == range)){
+                inRangeEnemies.add(e);
+            }
+        }
+        return inRangeEnemies;
     }
 }

@@ -13,7 +13,8 @@ public class Rouge extends Player {
         this.abilityName = RogueAbility;
     }
 
-    public boolean canCast() {
+    @Override
+    protected boolean canCast() {
         if (currentEnergy < cost) {
             return false;
         }
@@ -32,9 +33,9 @@ public class Rouge extends Player {
         }
     }
     @Override
-    public void gameTick(){
-        currentEnergy = Math.min(energyMax,currentEnergy+10);
-
+    public void gameTick() {
+        currentEnergy = Math.min(EnergyMax, currentEnergy + 10);
+    }
 
     @Override
     protected void levelUp(){
@@ -42,5 +43,6 @@ public class Rouge extends Player {
         currentEnergy = EnergyMax;
         attack += 3 * level;
     }
+
 }
 

@@ -26,26 +26,23 @@ public class Mage extends Player{
 
     @Override
     public void castAbility() {
-        if(currentMana < manaCost){
-            //print
-            return;
-        }
-        Random rnd = new Random();
-        currentMana = currentMana - manaCost;
-        int hits = 0;
-        List<Enemy> inRangeEnemies = new LinkedList<>();
-        for(Enemy e : currentlevel.getEnemies()){
-            if(getRange(e) < abilityRange){
-                inRangeEnemies.add(e);
+        if(canCast()) {
+            Random rnd = new Random();
+            currentMana = currentMana - manaCost;
+            int hits = 0;
+            List<Enemy> inRangeEnemies = getEnemiesInRange(abilityRange, false);
+            while (hits < hitsCount && !inRangeEnemies.isEmpty()) {
+                Enemy target = inRangeEnemies.get(rnd.nextInt(inRangeEnemies.size()));
+                target.defend(this, spellPower);
+                if (target.getHealthAmount() == 0)
+                    inRangeEnemies.remove(target);
+                hits++;
             }
         }
-        while(hits < hitsCount && !inRangeEnemies.isEmpty()){
-            Enemy target = inRangeEnemies.get(rnd.nextInt(inRangeEnemies.size()));
-            target.defend(this, spellPower);
-            if(target.getHealthAmount() == 0)
-                inRangeEnemies.remove(target);
-            hits++;
-        }
+    }
+    @Override
+    protected boolean canCast(){
+        return currentMana >= manaCost;
     }
     @Override
     public void gameTick(){

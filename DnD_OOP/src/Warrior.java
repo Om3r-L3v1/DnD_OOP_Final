@@ -20,27 +20,22 @@ public class Warrior extends Player{
         if(canCast()) {
             remainingCooldown = abilityCooldown;
             healthAmount = Math.min(healthAmount+10*defence, healthPool);
-            List<Enemy> inRangeEnemies = new LinkedList<>();
-            for(Enemy e : currentlevel.getEnemies()){
-                if(this.getRange(e)< AbilityRange){
-                    inRangeEnemies.add(e);
-                }
-            }
+            List<Enemy> inRangeEnemies = getEnemiesInRange(AbilityRange, false);
             if(inRangeEnemies.size()>0){
                 Random rnd = new Random();
                 int index = rnd.nextInt(inRangeEnemies.size());
                 Enemy enemy = inRangeEnemies.get(index);
-                enemy.setHealthAmount(enemy.getHealthAmount()-(int)Math.ceil(healthPool/10.0));
+                enemy.takeDamage((int)Math.ceil(healthPool/10.0));
             }
         }
     }
     @Override
     public void gameTick(){
-        remainingCoolDown=Math.max(0,remainingCoolDown-1);
+        remainingCooldown=Math.max(0,remainingCooldown-1);
     }
-    public boolean canCast(){
-        if(remainingCooldown == 0) return true;
-        return false;
+    @Override
+    protected boolean canCast(){
+        return remainingCooldown == 0;
     }
 
 

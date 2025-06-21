@@ -68,6 +68,7 @@ public class Level {
                     break;
             }
         }while(!validInput);
+        player.gameTick();
         if(enemies.isEmpty())
             levelOver = true;
     }
