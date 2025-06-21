@@ -57,4 +57,18 @@ public abstract class Player extends Unit implements HeroicUnit {
     public void attack(Player p){
 
     }
+
+    protected void levelUp(){
+        experience -= 50 * level;
+        level++;
+        healthPool += 10 * level;
+        healthAmount = healthPool;
+        attack += 4 * level;
+        defence += level;
+    };
+
+    @Override
+    public String getAbilityName(){
+        return abilityName;
+    }
 }
