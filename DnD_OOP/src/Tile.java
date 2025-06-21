@@ -9,8 +9,8 @@ abstract public class Tile {
         this.tile = tile;
 
     }
-
-    public int GetRange(Tile t){
+  
+    public int getRange(Tile t){
         return (int)Math.sqrt(Math.pow(t.x-x,2)+Math.pow(t.y-y,2));
     }
 
