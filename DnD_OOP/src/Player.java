@@ -4,6 +4,7 @@ import java.util.Random;
 
 public abstract class Player extends Unit implements HeroicUnit {
     public static final char PLAYER_CHAR = '@';
+    public static final char PLAYER_DEAD_CHAR = 'X';
     protected int experience;
     protected int level;
     protected String abilityName;
@@ -29,7 +30,10 @@ public abstract class Player extends Unit implements HeroicUnit {
     @Override
     public boolean canMoveOn(Monster m){
         m.attack(this);
-        return healthAmount == 0;
+        if(isDead()){
+            tile = PLAYER_DEAD_CHAR;
+        }
+        return false;
     }
     @Override
     public boolean canMoveTo(Tile target){
