@@ -8,29 +8,40 @@ public abstract class Enemy extends Unit {
         this.expValue = expValue;
     }
     @Override
-    public void defend(Player p){
-        //player name is attacking monster name
-        //you role the attack you got x
-        //the defender roled y
+    public void defend(Player p, int damage){
         Random rnd = new Random();
-        int damage = rnd.nextInt(p.attack+1);
         int defence = rnd.nextInt(this.defence+1);
         if(defence<damage)
             setHealthAmount(healthAmount - (damage - defence));
         //damage of (damage - defence) caused
         //health remaining
     }
+
     @Override
-    public void defend(Enemy m){
+    public void attack(Player p){
+        //player name is attacking monster name
+        //you role the attack you got x
+        //the defender roled y
+        Random rnd = new Random();
+        int damage = rnd.nextInt(this.attack+1);
+        p.defend(this, damage);
+    }
+    @Override
+    public void defend(Enemy m, int damage){
 
     }
+    @Override
+    public void attack(Enemy m){
+
+    }
+
     public void takeTurn(){
 
     }
 
     @Override
     public boolean canMoveOn(Player p){
-        this.defend(p);
+        p.attack(this);
         return healthAmount == 0;
     }
 

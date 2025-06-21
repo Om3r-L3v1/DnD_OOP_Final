@@ -39,6 +39,6 @@ public class Hunter extends Player{
             }
         }
         Enemy target = closest.get(rnd.nextInt(closest.size()));
-        target.defend(this);
+        target.defend(this, attack);
     }
 }

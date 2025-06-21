@@ -24,7 +24,7 @@ public abstract class Player extends Unit implements HeroicUnit {
 
     @Override
     public boolean canMoveOn(Monster m){
-        this.defend(m);
+        m.attack(this);
         return healthAmount == 0;
     }
 
@@ -33,15 +33,10 @@ public abstract class Player extends Unit implements HeroicUnit {
         return target.canMoveOn(this);
     }
     @Override
-    public void defend(Player p){}
+    public void defend(Player p, int damage){}
     @Override
-    public void defend(Enemy m){
-
-        //monster name is attacking player name
-        //you role the attack you got x
-        //the defender rolled y
+    public void defend(Enemy m, int damage){
         Random rnd = new Random();
-        int damage = rnd.nextInt(m.attack+1);
         int defence = rnd.nextInt(this.defence+1);
         if(defence<damage)
             setHealthAmount(healthAmount - (damage - defence));
@@ -49,5 +44,17 @@ public abstract class Player extends Unit implements HeroicUnit {
         //health remaining
 
     }
+    @Override
+    public void attack(Enemy m){
+        //monster name is attacking player name
+        //you role the attack you got x
+        //the defender rolled y
+        Random rnd = new Random();
+        int damage = rnd.nextInt(m.attack+1);
+        m.defend(this, damage);
+    }
+    @Override
+    public void attack(Player p){
 
+    }
 }

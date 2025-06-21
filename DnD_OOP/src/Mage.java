@@ -39,15 +39,12 @@ public class Mage extends Player{
                 inRangeEnemies.add(e);
             }
         }
-        int regAttack = attack;
-        attack = spellPower;
         while(hits < hitsCount && !inRangeEnemies.isEmpty()){
             Enemy target = inRangeEnemies.get(rnd.nextInt(inRangeEnemies.size()));
-            target.defend(this);
+            target.defend(this, spellPower);
             if(target.getHealthAmount() == 0)
                 inRangeEnemies.remove(target);
             hits++;
         }
-        attack = regAttack;
     }
 }

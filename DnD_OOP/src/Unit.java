@@ -104,8 +104,10 @@ abstract public class Unit extends Tile {
         this.defence = defence;
     }
 
-    public abstract void defend(Player p);
-    public abstract void defend(Enemy m);
+    public abstract void defend(Player p, int damage);
+    public abstract void defend(Enemy m, int damage);
+    public abstract void attack(Player p);
+    public abstract void attack(Enemy m);
 
     public abstract boolean canMoveTo(Tile target);
 }
