@@ -3,9 +3,9 @@ public class Boss extends Monster implements HeroicUnit {
     private int abilityFreq;
     private int combatTicks;
 
-    public Boss(int x, int y, char tile, String name, Level currentLevel, int healthPool, int healthAmount, int attack, int defence,
+    public Boss(int x, int y, char tile, String name, Board board, int healthPool, int healthAmount, int attack, int defence,
                 int expValue, int visionRange, int abilityFreq) {
-        super(x, y, tile, name, currentLevel, healthPool, healthAmount, attack, defence, expValue, visionRange);
+        super(x, y, tile, name, board, healthPool, healthAmount, attack, defence, expValue, visionRange);
         this.abilityFreq = abilityFreq;
         this.combatTicks = 0;
     }
@@ -13,7 +13,7 @@ public class Boss extends Monster implements HeroicUnit {
     @Override
     public void castAbility() {
         //Assuming the player is in vision range
-        Player p = currentlevel.getPlayer();
+        Player p = board.getPlayer();
         p.defend(this, attack);
     }
 
@@ -24,7 +24,7 @@ public class Boss extends Monster implements HeroicUnit {
 
     @Override
     public void takeTurn() {
-        Player p = currentlevel.getPlayer();
+        Player p = board.getPlayer();
         if(getRange(p) < visionRange){
             if(combatTicks == abilityFreq){
                 combatTicks = 0;

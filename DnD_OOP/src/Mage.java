@@ -15,9 +15,9 @@ public class Mage extends Player{
     private int abilityRange;
 
 
-    public Mage(int x, int y, String name, Level currentLevel, int healthPool, int healthAmount, int attack, int defence,
+    public Mage(int x, int y, String name, Board board, int healthPool, int healthAmount, int attack, int defence,
                 int manaPool, int manaCost, int spellPower, int hitsCount, int abilityRange) {
-        super(x, y, name, currentLevel, healthPool, healthAmount, attack, defence);
+        super(x, y, name, board, healthPool, healthAmount, attack, defence);
 
         this.manaPool = manaPool;
         this.currentMana = getManaCharge();

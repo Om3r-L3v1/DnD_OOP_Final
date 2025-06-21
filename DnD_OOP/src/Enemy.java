@@ -3,8 +3,8 @@ import java.util.Random;
 public abstract class Enemy extends Unit {
     int expValue;
 
-    public Enemy(int x, int y, char tile, String name, Level currentLevel, int healthPool, int healthAmount, int attack, int defence, int expValue) {
-        super(x,y,tile,name,currentLevel,healthPool,healthAmount,attack,defence);
+    public Enemy(int x, int y, char tile, String name, Board board, int healthPool, int healthAmount, int attack, int defence, int expValue) {
+        super(x,y,tile,name,board,healthPool,healthAmount,attack,defence);
         this.expValue = expValue;
     }
     @Override
@@ -56,8 +56,7 @@ public abstract class Enemy extends Unit {
     public void takeDamage(int damageTaken){
         super.takeDamage(damageTaken);
         if(isDead()){
-            currentlevel.getEnemies().remove(this);
-            currentlevel.getTiles()[x][y] = new Empty(x, y);
+            board.removeEnemy(this);
         }
     }
 }

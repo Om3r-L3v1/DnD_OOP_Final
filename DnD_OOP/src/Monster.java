@@ -3,8 +3,8 @@ import java.util.Random;
 public class Monster extends Enemy {
     protected int visionRange;
 
-    public Monster(int x, int y, char tile, String name, Level currentLevel, int healthPool, int healthAmount, int attack, int defence, int expValue, int visionRange) {
-        super(x,y,tile,name,currentLevel,healthPool,healthAmount,attack,defence,expValue);
+    public Monster(int x, int y, char tile, String name, Board board, int healthPool, int healthAmount, int attack, int defence, int expValue, int visionRange) {
+        super(x,y,tile,name,board,healthPool,healthAmount,attack,defence,expValue);
         this.visionRange = visionRange;
     }
 
@@ -15,7 +15,7 @@ public class Monster extends Enemy {
 
     @Override
     public void takeTurn() {
-        Player p = currentlevel.getPlayer();
+        Player p = board.getPlayer();
         if(getRange(p) < visionRange){
             moveChase();
         }
@@ -24,7 +24,7 @@ public class Monster extends Enemy {
         }
     }
     protected void moveChase(){
-        Player p = currentlevel.getPlayer();
+        Player p = board.getPlayer();
         int dx = getX() - p.getX();
         int dy = getY() - p.getY();
         if(Math.abs(dx) > Math.abs(dy)){

@@ -1,65 +1,53 @@
 abstract public class Unit extends Tile {
     protected String name;
-    protected Level currentlevel;
+    protected Board board;
     protected int healthPool;
     protected int healthAmount;
     protected int attack;
     protected int defence;
 
-    public Unit(int x, int y, char tile,String name, Level currentlevel, int healthPool, int healthAmount,int attack, int defence){
+    public Unit(int x, int y, char tile, String name, Board board, int healthPool, int healthAmount, int attack, int defence){
         super(tile,x,y);
         this.name = name;
         this.healthAmount = healthAmount;
         this.healthPool = healthPool;
         this.attack = attack;
         this.defence = defence;
-        this.currentlevel = currentlevel;
+        this.board = board;
     }
 
     public void moveUp() {
         if(y != 0){
-            Tile[][] tiles = currentlevel.getTiles();
-            Tile target = tiles[x][y - 1];
+            Tile target = board.getTile(x, y-1);
             if(canMoveTo(target)){
-                tiles[x][y] = new Empty(x, y);
-                tiles[x][y - 1] = this;
-                y--;
+                board.swapPlaces(this, target);
             }
         }
     }
 
     public void moveDown() {
-        if(y != currentlevel.getTiles()[0].length){
-            Tile[][] tiles = currentlevel.getTiles();
-            Tile target = tiles[x][y + 1];
+        if(y != board.height()){
+            Tile target = board.getTile(x, y+1);
             if(canMoveTo(target)){
-                tiles[x][y] = new Empty(x, y);
-                tiles[x][y + 1] = this;
-                y++;
+                board.swapPlaces(this, target);
             }
         }
     }
 
     public void moveLeft() {
         if(x != 0){
-            Tile[][] tiles = currentlevel.getTiles();
-            Tile target = tiles[x - 1][y];
+            Tile target = board.getTile(x-1, y);
             if(canMoveTo(target)){
-                tiles[x][y] = new Empty(x, y);
-                tiles[x - 1][y] = this;
-                x--;
+                board.swapPlaces(this, target);
             }
         }
     }
 
     public void moveRight() {
-        if(x != currentlevel.getTiles().length){
-            Tile[][] tiles = currentlevel.getTiles();
-            Tile target = tiles[x + 1][y];
+        if(x != board.width()){
+            Tile target = board.getTile(x+1, y);
             if(canMoveTo(target)){
-                tiles[x][y] = new Empty(x, y);
-                tiles[x + 1][y] = this;
-                x++;
+                board.swapPlaces(this, target);
             }
         }
     }

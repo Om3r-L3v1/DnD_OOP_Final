@@ -13,8 +13,8 @@ public abstract class Player extends Unit implements HeroicUnit {
     protected int experience;
     protected int level;
 
-    public Player(int x, int y, String name, Level currentLevel, int healthPool, int healthAmount, int attack, int defence) {
-        super(x, y, PLAYER_CHAR, name, currentLevel, healthPool, healthAmount, attack, defence);
+    public Player(int x, int y, String name, Board board, int healthPool, int healthAmount, int attack, int defence) {
+        super(x, y, PLAYER_CHAR, name, board, healthPool, healthAmount, attack, defence);
         this.experience = 0;
         this.level = 1;
     }
@@ -93,7 +93,7 @@ public abstract class Player extends Unit implements HeroicUnit {
 
     protected List<Enemy> getEnemiesInRange(int range, boolean inclusive){
         List<Enemy> inRangeEnemies = new LinkedList<>();
-        for(Enemy e : currentlevel.getEnemies()){
+        for(Enemy e : board.getEnemies()){
             int enemyRange = getRange(e);
             if(enemyRange < range || (inclusive && enemyRange == range)){
                 inRangeEnemies.add(e);

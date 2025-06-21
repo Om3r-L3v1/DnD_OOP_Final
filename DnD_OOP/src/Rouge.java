@@ -8,8 +8,8 @@ public class Rouge extends Player {
     private int cost;
     private int currentEnergy;
 
-    public Rouge(int x, int y, String name, Level currentLevel, int healthPool, int healthAmount, int attack, int defence, int cost) {
-        super(x, y, name, currentLevel, healthPool, healthAmount, attack, defence);
+    public Rouge(int x, int y, String name, Board board, int healthPool, int healthAmount, int attack, int defence, int cost) {
+        super(x, y, name, board, healthPool, healthAmount, attack, defence);
         this.cost = cost;
         this.currentEnergy = getEnergyMax();
     }
@@ -34,7 +34,7 @@ public class Rouge extends Player {
     public void castAbility() {
         if (canCast()) {
             currentEnergy -= cost;
-            for (Enemy e : currentlevel.getEnemies()) {
+            for (Enemy e : board.getEnemies()) {
                 if (this.getRange(e) < ABILITY_RANGE) {
                     e.defend(this, attack);
                 }

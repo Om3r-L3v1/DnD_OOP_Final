@@ -9,9 +9,9 @@ public class Hunter extends Player{
     private int arrowsCount;
     private int ticksCount;
 
-    public Hunter(int x, int y, String name, Level currentLevel, int healthPool, int healthAmount, int attack, int defence,
+    public Hunter(int x, int y, String name, Board board, int healthPool, int healthAmount, int attack, int defence,
     int range) {
-        super(x, y, name, currentLevel, healthPool, healthAmount, attack, defence);
+        super(x, y, name, board, healthPool, healthAmount, attack, defence);
         this.range = range;
         this.arrowsCount = 10 * level;
         this.ticksCount = 0;
@@ -29,7 +29,7 @@ public class Hunter extends Player{
             Random rnd = new Random();
             List<Enemy> closest = new LinkedList<>();
             int closestRange = -1;
-            for(Enemy e : currentlevel.getEnemies()) {
+            for(Enemy e : board.getEnemies()) {
                 int enemyRange = getRange(e);
                 if(enemyRange <= range) {
                     if(enemyRange == closestRange)
