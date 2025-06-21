@@ -39,9 +39,7 @@ public abstract class Enemy extends Unit {
 
     }
 
-    public void takeTurn(){
-
-    }
+    public abstract void takeTurn();
 
     @Override
     public boolean canMoveOn(Player p){

@@ -35,6 +35,7 @@ public abstract class Player extends Unit implements HeroicUnit {
         }
         return false;
     }
+
     @Override
     public boolean canMoveTo(Tile target){
         return target.canMoveOn(this);
