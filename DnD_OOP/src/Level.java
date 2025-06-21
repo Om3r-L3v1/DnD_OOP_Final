@@ -76,7 +76,7 @@ public class Level {
     private void enemyTurn(){
         for(Enemy e : enemies){
             e.takeTurn();
-            if(player.getHealthAmount() == 0){
+            if(player.isDead()){
                 levelOver = true;
                 return;
             }
