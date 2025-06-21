@@ -84,9 +84,15 @@ abstract public class Unit extends Tile {
         return healthAmount;
     }
 
-    public void setHealthAmount(int healthAmount) {
-        this.healthAmount = Math.max(0, Math.min(getHealthPool(), healthAmount));
+    public void takeDamage(int damageTaken) {
+        this.healthAmount = Math.max(0, healthAmount - damageTaken);
     }
+
+    public void heal(int healAmount){
+        this.healthAmount = Math.min(healthPool, healthAmount + healAmount);
+    }
+
+    public boolean isDead(){return healthAmount == 0;}
 
     public int getAttack() {
         return attack;

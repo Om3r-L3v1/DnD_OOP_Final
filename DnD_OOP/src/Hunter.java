@@ -15,6 +15,7 @@ public class Hunter extends Player{
         this.range = range;
         this.arrowsCount = 10 * level;
         this.ticksCount = 0;
+        this.abilityName = HunterAbility;
     }
 
     @Override
@@ -47,5 +48,12 @@ public class Hunter extends Player{
             ticksCount = 0;
             arrowsCount+=level;
         }else ticksCount++;
+
+    @Override
+    protected void levelUp(){
+        super.levelUp();
+        arrowsCount += 10 * level;
+        attack += 2 * level;
+        defence += level;
     }
 }

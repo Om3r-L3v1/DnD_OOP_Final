@@ -51,6 +51,15 @@ public class Mage extends Player{
     public void gameTick(){
         chargeMana(level);
     }
+
+    @Override
+    protected void levelUp(){
+        super.levelUp();
+        manaPool += 25 * level;
+        chargeMana((int)Math.ceil(manaPool / 4.0));
+        spellPower += 10 * level;
+    }
+
     private void chargeMana(int amount){
         currentMana = Math.min(manaPool, currentMana + amount);
     }

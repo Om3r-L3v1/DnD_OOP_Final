@@ -3,34 +3,26 @@ import java.util.List;
 import java.util.Random;
 
 public class Warrior extends Player{
-    final String warriorAbility = "Avenger's Shield";
-    final int rangeAbility = 3;
-    private int abillityCoolDown;
-    private int remainingCoolDown;
-    public Warrior(int x, int y, String name, Level currentLevel, int healthPool, int healthAmount, int attack, int defence, int abillityCoolDown) {
+    private final String WarriorAbility = "Avenger's Shield";
+    private final int AbilityRange = 3;
+    private int abilityCooldown;
+    private int remainingCooldown;
+    public Warrior(int x, int y, String name, Level currentLevel, int healthPool, int healthAmount, int attack, int defence, int abilityCooldown) {
         super(x, y, name, currentLevel, healthPool, healthAmount, attack, defence);
-        super.abilityName = warriorAbility;
-        this.remainingCoolDown = 0;
-        this.abillityCoolDown = abillityCoolDown;
+        super.abilityName = WarriorAbility;
+        this.remainingCooldown = 0;
+        this.abilityCooldown = abilityCooldown;
     }
-    public void levelUp(){
-        experience -=50*level;
-        level++;
-        remainingCoolDown = 0;
-        healthPool += this.level*15;
-        healthAmount = healthPool;
-        attack += 6*level;
-        defence += 2*level;
-    }
+
     @Override
     public void castAbility() {
         //temporary
         if(canCast()) {
-            remainingCoolDown = abillityCoolDown;
+            remainingCooldown = abilityCooldown;
             healthAmount = Math.min(healthAmount+10*defence, healthPool);
             List<Enemy> inRangeEnemies = new LinkedList<>();
             for(Enemy e : currentlevel.getEnemies()){
-                if(this.getRange(e)<rangeAbility){
+                if(this.getRange(e)< AbilityRange){
                     inRangeEnemies.add(e);
                 }
             }
@@ -47,7 +39,18 @@ public class Warrior extends Player{
         remainingCoolDown=Math.max(0,remainingCoolDown-1);
     }
     public boolean canCast(){
-        if(remainingCoolDown == 0) return true;
+        if(remainingCooldown == 0) return true;
         return false;
     }
+
+
+    @Override
+    protected void levelUp(){
+        super.levelUp();
+        remainingCooldown = 0;
+        healthPool += 5 * level;
+        attack += 2 * level;
+        defence += level;
+    }
+
 }
