@@ -3,7 +3,7 @@ public class Trap extends Enemy {
     private int invisibalityTime;
     private int ticksCount;
     private boolean visible;
-    private final int attackRange = 2;
+    private final int AttackRange = 2;
 
     public Trap(int x, int y, char tile, String name, Level currentLevel, int healthPool, int healthAmount, int attack, int defence, int expValue,
                    int visibalityTime, int invisibalityTime) {
@@ -17,5 +17,18 @@ public class Trap extends Enemy {
     @Override
     public boolean canMoveTo(Tile target){
         return false;
+    }
+
+    @Override
+    public void takeTurn() {
+        visible = ticksCount < visibalityTime;
+        if(ticksCount == (visibalityTime + invisibalityTime))
+            ticksCount = 0;
+        else
+            ticksCount++;
+        Player p = currentlevel.getPlayer();
+        if(getRange(p) < AttackRange){
+            attack(p);
+        }
     }
 }

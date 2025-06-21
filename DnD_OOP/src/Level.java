@@ -176,4 +176,5 @@ public class Level {
         return tiles;
     }
     public List<Enemy> getEnemies(){return enemies;}
+    public Player getPlayer(){return player;}
 }
