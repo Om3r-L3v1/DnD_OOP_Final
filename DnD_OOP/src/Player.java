@@ -4,6 +4,7 @@ public abstract class Player extends Unit implements HeroicUnit {
     public static final char PLAYER_CHAR = '@';
     protected int experience;
     protected int level;
+    protected String abilityName;
 
     public Player(int x, int y, String name, Level currentLevel, int healthPool, int healthAmount, int attack, int defence, int experience, int level) {
         super(x, y, PLAYER_CHAR, name, currentLevel, healthPool, healthAmount, attack, defence);
