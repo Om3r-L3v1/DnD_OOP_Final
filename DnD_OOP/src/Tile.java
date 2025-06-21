@@ -24,4 +24,9 @@ abstract public class Tile {
 
     public abstract boolean canMoveOn(Player p);
     public abstract boolean canMoveOn(Monster m);
+
+    @Override
+    public String toString() {
+        return tile + "";
+    }
 }

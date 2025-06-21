@@ -32,4 +32,9 @@ public class Trap extends Enemy {
             attack(p);
         }
     }
+
+    @Override
+    public String toString(){
+        return visible ? super.toString() : Empty.EMPTY_CHAR + "";
+    }
 }
