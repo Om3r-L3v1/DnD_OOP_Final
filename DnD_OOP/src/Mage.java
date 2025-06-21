@@ -47,4 +47,11 @@ public class Mage extends Player{
             hits++;
         }
     }
+    @Override
+    public void gameTick(){
+        chargeMana(level);
+    }
+    private void chargeMana(int amount){
+        currentMana = Math.min(manaPool, currentMana + amount);
+    }
 }

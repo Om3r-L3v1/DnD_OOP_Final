@@ -27,7 +27,6 @@ public abstract class Player extends Unit implements HeroicUnit {
         m.attack(this);
         return healthAmount == 0;
     }
-
     @Override
     public boolean canMoveTo(Tile target){
         return target.canMoveOn(this);
@@ -57,4 +56,5 @@ public abstract class Player extends Unit implements HeroicUnit {
     public void attack(Player p){
 
     }
+    public abstract void gameTick();
 }
