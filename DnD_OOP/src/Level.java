@@ -30,7 +30,7 @@ public class Level {
             playerTurn();
             enemyTurn();
         }
-        if(player.getHealthAmount() == 0)
+        if(player.isDead())
             return false;
         else
             return true;
