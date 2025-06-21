@@ -1,17 +1,31 @@
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
 public class Warrior extends Player{
-    private final String WarriorAbility = "Avenger's Shield";
-    private final int AbilityRange = 3;
+    private static final String WARRIOR_ABILITY = "Avenger's Shield";
+    private static final int ABILITY_RANGE = 3;
+    private static final int HEALTH_POOL_EXTRA_GAIN = 5;
+    private static final int ATTACK_EXTRA_GAIN = 2;
+    private static final int DEFENCE_EXTRA_GAIN = 1;
+
     private int abilityCooldown;
     private int remainingCooldown;
     public Warrior(int x, int y, String name, Level currentLevel, int healthPool, int healthAmount, int attack, int defence, int abilityCooldown) {
         super(x, y, name, currentLevel, healthPool, healthAmount, attack, defence);
-        super.abilityName = WarriorAbility;
         this.remainingCooldown = 0;
         this.abilityCooldown = abilityCooldown;
+    }
+
+    @Override
+    protected int getHealthPoolGain(){return HEALTH_POOL_GAIN + HEALTH_POOL_EXTRA_GAIN;}
+    @Override
+    protected int getAttackGain(){return ATTACK_GAIN + ATTACK_EXTRA_GAIN;}
+    @Override
+    protected int getDefenceGain(){return DEFENCE_GAIN + DEFENCE_EXTRA_GAIN;}
+
+    @Override
+    public String getAbilityName(){
+        return WARRIOR_ABILITY;
     }
 
     @Override
@@ -20,7 +34,7 @@ public class Warrior extends Player{
         if(canCast()) {
             remainingCooldown = abilityCooldown;
             healthAmount = Math.min(healthAmount+10*defence, healthPool);
-            List<Enemy> inRangeEnemies = getEnemiesInRange(AbilityRange, false);
+            List<Enemy> inRangeEnemies = getEnemiesInRange(ABILITY_RANGE, false);
             if(inRangeEnemies.size()>0){
                 Random rnd = new Random();
                 int index = rnd.nextInt(inRangeEnemies.size());
@@ -43,9 +57,6 @@ public class Warrior extends Player{
     protected void levelUp(){
         super.levelUp();
         remainingCooldown = 0;
-        healthPool += 5 * level;
-        attack += 2 * level;
-        defence += level;
     }
 
 }

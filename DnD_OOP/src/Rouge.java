@@ -1,17 +1,22 @@
 public class Rouge extends Player {
+    private static final String ROGUE_ABILITY = "Fan of Knives";
+    private static final int ABILITY_RANGE = 2;
+    private static final int ENERGY_MAX = 100;
+    private static final int ENERGY_REGEN = 10;
+    private static final int ATTACK_EXTRA_GAIN = 3;
 
-    private final String RogueAbility = "Fan of Knives";
-    private final int AbilityRange = 2;
-    private final int EnergyMax = 100;
     private int cost;
     private int currentEnergy;
 
     public Rouge(int x, int y, String name, Level currentLevel, int healthPool, int healthAmount, int attack, int defence, int cost) {
         super(x, y, name, currentLevel, healthPool, healthAmount, attack, defence);
         this.cost = cost;
-        this.currentEnergy = EnergyMax;
-        this.abilityName = RogueAbility;
+        this.currentEnergy = getEnergyMax();
     }
+
+    private int getEnergyMax(){return ENERGY_MAX;}
+    @Override
+    protected int getAttackGain(){return ATTACK_GAIN + ATTACK_EXTRA_GAIN;}
 
     @Override
     protected boolean canCast() {
@@ -22,11 +27,15 @@ public class Rouge extends Player {
     }
 
     @Override
+    public String getAbilityName(){
+        return ROGUE_ABILITY;
+    }
+    @Override
     public void castAbility() {
         if (canCast()) {
             currentEnergy -= cost;
             for (Enemy e : currentlevel.getEnemies()) {
-                if (this.getRange(e) < AbilityRange) {
+                if (this.getRange(e) < ABILITY_RANGE) {
                     e.defend(this, attack);
                 }
             }
@@ -34,14 +43,13 @@ public class Rouge extends Player {
     }
     @Override
     public void gameTick() {
-        currentEnergy = Math.min(EnergyMax, currentEnergy + 10);
+        currentEnergy = Math.min(ENERGY_MAX, currentEnergy + ENERGY_REGEN);
     }
 
     @Override
     protected void levelUp(){
         super.levelUp();
-        currentEnergy = EnergyMax;
-        attack += 3 * level;
+        currentEnergy = getEnergyMax();
     }
 
 }

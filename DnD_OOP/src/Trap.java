@@ -1,9 +1,10 @@
 public class Trap extends Enemy {
+    private final int ATTACK_RANGE = 2;
+
     private int visibalityTime;
     private int invisibalityTime;
     private int ticksCount;
     private boolean visible;
-    private final int AttackRange = 2;
 
     public Trap(int x, int y, char tile, String name, Level currentLevel, int healthPool, int healthAmount, int attack, int defence, int expValue,
                    int visibalityTime, int invisibalityTime) {
@@ -27,7 +28,7 @@ public class Trap extends Enemy {
         else
             ticksCount++;
         Player p = currentlevel.getPlayer();
-        if(getRange(p) < AttackRange){
+        if(getRange(p) < ATTACK_RANGE){
             attack(p);
         }
     }
