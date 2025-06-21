@@ -11,9 +11,9 @@ public class Mage extends Player{
     private int abilityRange;
     private final String MageAbility = "Blizzard";
 
-    public Mage(int x, int y, String name, Level currentLevel, int healthPool, int healthAmount, int attack, int defence, int experience, int level,
+    public Mage(int x, int y, String name, Level currentLevel, int healthPool, int healthAmount, int attack, int defence,
                 int manaPool, int manaCost, int spellPower, int hitsCount, int abilityRange) {
-        super(x, y, name, currentLevel, healthPool, healthAmount, attack, defence, experience, level);
+        super(x, y, name, currentLevel, healthPool, healthAmount, attack, defence);
 
         this.manaPool = manaPool;
         this.currentMana = (int)Math.ceil(manaPool / 4.0);

@@ -7,7 +7,7 @@ public class Warrior extends Player{
     final int rangeAbility = 3;
     private int abillityCoolDown;
     private int remainingCoolDown;
-    public Warrior(int x, int y, String name, Level currentLevel, int healthPool, int healthAmount, int attack, int defence, int experience, int level, int abillityCoolDown) {
+    public Warrior(int x, int y, String name, Level currentLevel, int healthPool, int healthAmount, int attack, int defence, int abillityCoolDown) {
         super(x, y, name, currentLevel, healthPool, healthAmount, attack, defence);
         super.abilityName = warriorAbility;
         this.remainingCoolDown = 0;
@@ -30,7 +30,7 @@ public class Warrior extends Player{
             healthAmount = Math.min(healthAmount+10*defence, healthPool);
             List<Enemy> inRangeEnemies = new LinkedList<>();
             for(Enemy e : currentlevel.getEnemies()){
-                if(this.GetRange(e)<rangeAbility){
+                if(this.getRange(e)<rangeAbility){
                     inRangeEnemies.add(e);
                 }
             }

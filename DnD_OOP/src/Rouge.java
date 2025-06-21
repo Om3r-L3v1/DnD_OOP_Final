@@ -36,7 +36,7 @@ public class Rouge extends Player {
         if (canCast()) {
             currentEnergy -= cost;
             for (Enemy e : currentlevel.getEnemies()) {
-                if (this.GetRange(e) < rangeAbility) {
+                if (this.getRange(e) < rangeAbility) {
                     e.defend(this);
                 }
             }
