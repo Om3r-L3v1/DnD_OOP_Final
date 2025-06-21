@@ -5,15 +5,24 @@ import java.util.Random;
 public abstract class Player extends Unit implements HeroicUnit {
     public static final char PLAYER_CHAR = '@';
     public static final char PLAYER_DEAD_CHAR = 'X';
+    protected static final int LEVEL_UP_EXP = 50;
+    protected static final int HEALTH_POOL_GAIN = 10;
+    protected static final int ATTACK_GAIN = 4;
+    protected static final int DEFENCE_GAIN = 1;
+
     protected int experience;
     protected int level;
-    protected String abilityName;
 
     public Player(int x, int y, String name, Level currentLevel, int healthPool, int healthAmount, int attack, int defence) {
         super(x, y, PLAYER_CHAR, name, currentLevel, healthPool, healthAmount, attack, defence);
         this.experience = 0;
         this.level = 1;
     }
+
+    protected int getLevelUpExp(){return LEVEL_UP_EXP;}
+    protected int getHealthPoolGain(){return HEALTH_POOL_GAIN;}
+    protected int getAttackGain(){return ATTACK_GAIN;}
+    protected int getDefenceGain(){return DEFENCE_GAIN;}
 
     @Override
     public void castAbility() {
@@ -69,22 +78,17 @@ public abstract class Player extends Unit implements HeroicUnit {
 
     public void gainExperience(int expValue){
         experience += expValue;
-        if(experience >= 50 * level)
+        if(experience >= getLevelUpExp() * level)
             levelUp();
     }
 
     protected void levelUp(){
-        experience -= 50 * level;
+        experience -= getLevelUpExp() * level;
         level++;
-        healthPool += 10 * level;
+        healthPool += getHealthPoolGain() * level;
         healthAmount = healthPool;
-        attack += 4 * level;
-        defence += level;
-    };
-
-    @Override
-    public String getAbilityName(){
-        return abilityName;
+        attack += getAttackGain() * level;
+        defence += getDefenceGain() * level;
     }
 
     protected List<Enemy> getEnemiesInRange(int range, boolean inclusive){

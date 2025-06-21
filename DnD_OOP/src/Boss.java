@@ -1,7 +1,7 @@
 public class Boss extends Monster implements HeroicUnit {
+    private static final String BOSS_ABILITY = "Shoebodybop";
     private int abilityFreq;
     private int combatTicks;
-    private final String AbilityName = "Shoebodybop";
 
     public Boss(int x, int y, char tile, String name, Level currentLevel, int healthPool, int healthAmount, int attack, int defence,
                 int expValue, int visionRange, int abilityFreq) {
@@ -19,7 +19,7 @@ public class Boss extends Monster implements HeroicUnit {
 
     @Override
     public String getAbilityName() {
-        return AbilityName;
+        return BOSS_ABILITY;
     }
 
     @Override

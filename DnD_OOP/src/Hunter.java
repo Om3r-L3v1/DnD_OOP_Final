@@ -3,11 +3,11 @@ import java.util.List;
 import java.util.Random;
 
 public class Hunter extends Player{
+    private static final String HUNTER_ABILITY = "Shoot";
+
     private int range;
     private int arrowsCount;
     private int ticksCount;
-    private final String HunterAbility = "Shoot";
-
 
     public Hunter(int x, int y, String name, Level currentLevel, int healthPool, int healthAmount, int attack, int defence,
     int range) {
@@ -15,9 +15,13 @@ public class Hunter extends Player{
         this.range = range;
         this.arrowsCount = 10 * level;
         this.ticksCount = 0;
-        this.abilityName = HunterAbility;
     }
 
+
+    @Override
+    public String getAbilityName(){
+        return HUNTER_ABILITY;
+    }
     @Override
     public void castAbility(){
         if(canCast()){

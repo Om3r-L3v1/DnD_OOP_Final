@@ -1,27 +1,39 @@
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
 public class Mage extends Player{
+    private static final String MAGE_ABILITY = "Blizzard";
+    private static final int MANA_POOL_GAIN = 25;
+    private static final int SPELL_POWER_GAIN = 10;
+    private static final double MANA_INIT_FACTOR = 0.25;
+
     private int manaPool;
     private int currentMana;
     private int manaCost;
     private int spellPower;
     private int hitsCount;
     private int abilityRange;
-    private final String MageAbility = "Blizzard";
+
 
     public Mage(int x, int y, String name, Level currentLevel, int healthPool, int healthAmount, int attack, int defence,
                 int manaPool, int manaCost, int spellPower, int hitsCount, int abilityRange) {
         super(x, y, name, currentLevel, healthPool, healthAmount, attack, defence);
 
         this.manaPool = manaPool;
-        this.currentMana = (int)Math.ceil(manaPool / 4.0);
+        this.currentMana = getManaCharge();
         this.manaCost = manaCost;
         this.spellPower = spellPower;
         this.hitsCount = hitsCount;
         this.abilityRange = abilityRange;
-        this.abilityName = MageAbility;
+    }
+
+    private int getManaPoolGain(){return MANA_POOL_GAIN;}
+    private int getSpellPowerGain(){return SPELL_POWER_GAIN;}
+    private int getManaCharge(){return (int)Math.ceil(manaPool * MANA_INIT_FACTOR);}
+
+    @Override
+    public String getAbilityName(){
+        return MAGE_ABILITY;
     }
 
     @Override
@@ -52,9 +64,9 @@ public class Mage extends Player{
     @Override
     protected void levelUp(){
         super.levelUp();
-        manaPool += 25 * level;
-        chargeMana((int)Math.ceil(manaPool / 4.0));
-        spellPower += 10 * level;
+        manaPool += getManaPoolGain() * level;
+        chargeMana(getManaCharge());
+        spellPower += getSpellPowerGain() * level;
     }
 
     private void chargeMana(int amount){
