@@ -39,7 +39,7 @@ public abstract class Player extends Unit implements HeroicUnit {
         Random rnd = new Random();
         int defence = rnd.nextInt(this.defence+1);
         if(defence<damage)
-            setHealthAmount(healthAmount - (damage - defence));
+            takeDamage(damage - defence);
         //damage of (damage - defence) caused
         //health remaining
 
@@ -56,6 +56,12 @@ public abstract class Player extends Unit implements HeroicUnit {
     @Override
     public void attack(Player p){
 
+    }
+
+    public void gainExperience(int expValue){
+        experience += expValue;
+        if(experience >= 50 * level)
+            levelUp();
     }
 
     protected void levelUp(){

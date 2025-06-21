@@ -11,8 +11,12 @@ public abstract class Enemy extends Unit {
     public void defend(Player p, int damage){
         Random rnd = new Random();
         int defence = rnd.nextInt(this.defence+1);
-        if(defence<damage)
-            setHealthAmount(healthAmount - (damage - defence));
+        if(defence<damage){
+            takeDamage(damage - defence);
+            if(isDead()){
+                p.gainExperience(expValue);
+            }
+        }
         //damage of (damage - defence) caused
         //health remaining
     }
@@ -51,9 +55,9 @@ public abstract class Enemy extends Unit {
     }
 
     @Override
-    public void setHealthAmount(int healthAmount){
-        super.setHealthAmount(healthAmount);
-        if(healthAmount == 0){
+    public void takeDamage(int damageTaken){
+        super.takeDamage(damageTaken);
+        if(isDead()){
             currentlevel.getEnemies().remove(this);
             currentlevel.getTiles()[x][y] = new Empty(x, y);
         }
