@@ -132,4 +132,15 @@ public class Board {
         enemies.remove(e);
         tiles[e.getX()][e.getY()] = new Empty(e.getX(),e.getY());
     }
+    public String toString(){
+        StringBuilder toString = new StringBuilder();
+        for(Tile[] line:tiles){
+            for(Tile tile:line){
+                toString.append(tile.toString());
+            }
+            toString.append("\n");
+        }
+        return toString.toString();
+    }
+
 }

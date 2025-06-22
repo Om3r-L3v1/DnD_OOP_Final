@@ -52,6 +52,9 @@ public class Mage extends Player{
             }
         }
     }
+    public String getDescription(){
+        return super.getDescription()+String.format("Mana: %d/%d\tSpell Power: /%d",currentMana,manaPool,spellPower );
+    }
     @Override
     protected boolean canCast(){
         return currentMana >= manaCost;
