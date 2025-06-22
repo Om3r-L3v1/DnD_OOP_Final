@@ -23,6 +23,9 @@ public class Monster extends Enemy {
             moveRandom();
         }
     }
+    public String getDescription(){
+        return super.getDescription()+"Vision Range: "+visionRange;
+    }
     protected void moveChase(){
         Player p = board.getPlayer();
         int dx = getX() - p.getX();

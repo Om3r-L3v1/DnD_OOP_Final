@@ -43,6 +43,9 @@ public class Warrior extends Player{
             }
         }
     }
+    public String getDescription(){
+        return super.getDescription()+String.format("CoolDown: %d/%d",remainingCooldown,abilityCooldown );
+    }
     @Override
     public void gameTick(){
         remainingCooldown=Math.max(0,remainingCooldown-1);

@@ -25,7 +25,9 @@ public class Rouge extends Player {
         }
         return true;
     }
-
+    public String getDescription(){
+        return super.getDescription()+String.format("Energy: %d/%d",currentEnergy,getEnergyMax());
+    }
     @Override
     public String getAbilityName(){
         return ROGUE_ABILITY;

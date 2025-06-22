@@ -7,7 +7,6 @@ abstract public class Tile {
         this.x = x;
         this.y = y;
         this.tile = tile;
-
     }
   
     public int getRange(Tile t){
