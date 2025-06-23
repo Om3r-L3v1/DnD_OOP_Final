@@ -97,7 +97,8 @@ abstract public class Unit extends Tile {
     public void setDefence(int defence) {
         this.defence = defence;
     }
-    public String getDescription(){
+
+    public String description(){
         String result = String.format("Health: %d/%d\tAttack: %d\tDefence: %d\t",
                 healthAmount, healthPool, attack, defence);
         return result;

@@ -81,8 +81,8 @@ public abstract class Player extends Unit implements HeroicUnit {
         if(experience >= getLevelUpExp() * level)
             levelUp();
     }
-    public String getDescription(){
-        return super.getDescription()+String.format("Level: %d\tExperience: %d\t",level,experience);
+    public String description(){
+        return super.description()+String.format("Level: %d\tExperience: %d\t",level,experience);
     }
 
     protected void levelUp(){

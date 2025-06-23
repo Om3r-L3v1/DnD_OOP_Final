@@ -10,6 +10,7 @@ public class Warrior extends Player{
 
     private int abilityCooldown;
     private int remainingCooldown;
+
     public Warrior(int x, int y, String name, Board board, int healthPool, int healthAmount, int attack, int defence, int abilityCooldown) {
         super(x, y, name, board, healthPool, healthAmount, attack, defence);
         this.remainingCooldown = 0;
@@ -43,8 +44,8 @@ public class Warrior extends Player{
             }
         }
     }
-    public String getDescription(){
-        return super.getDescription()+String.format("CoolDown: %d/%d",remainingCooldown,abilityCooldown );
+    public String description(){
+        return super.description()+String.format("CoolDown: %d/%d",remainingCooldown,abilityCooldown );
     }
     @Override
     public void gameTick(){

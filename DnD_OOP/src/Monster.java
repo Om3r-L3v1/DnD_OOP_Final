@@ -23,8 +23,8 @@ public class Monster extends Enemy {
             moveRandom();
         }
     }
-    public String getDescription(){
-        return super.getDescription()+"Vision Range: "+visionRange;
+    public String description(){
+        return super.description()+"Vision Range: "+visionRange;
     }
     protected void moveChase(){
         Player p = board.getPlayer();

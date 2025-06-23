@@ -44,8 +44,8 @@ public class Hunter extends Player{
             target.defend(this, attack);
         }
     }
-    public String getDescription(){
-        return super.getDescription()+String.format("Arrows: %d\tRange: /%d",arrowsCount,range );
+    public String description(){
+        return super.description()+String.format("Arrows: %d\tRange: /%d",arrowsCount,range );
     }
     @Override
     protected boolean canCast(){

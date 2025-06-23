@@ -63,7 +63,7 @@ public abstract class Enemy extends Unit {
         }
     }
 
-    public String getDescription() {
-        return super.getDescription() + String.format("Experience Value: %d\t", expValue);
+    public String description() {
+        return super.description() + String.format("Experience Value: %d\t", expValue);
     }
 }
