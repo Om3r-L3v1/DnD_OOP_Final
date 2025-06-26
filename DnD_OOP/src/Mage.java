@@ -52,6 +52,13 @@ public class Mage extends Player{
             }
         }
     }
+
+    @Override
+    protected String levelUpString(){
+        return super.levelUpString() + String.format(", +%d Maximum Mana, +%d Spell Power"
+                ,getManaPoolGain(),getSpellPowerGain());
+    }
+    @Override
     public String description(){
         return super.description()+String.format("Mana: %d/%d\tSpell Power: /%d",currentMana,manaPool,spellPower );
     }

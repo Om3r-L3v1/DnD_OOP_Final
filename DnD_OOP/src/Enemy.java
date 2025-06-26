@@ -63,7 +63,14 @@ public abstract class Enemy extends Unit {
         }
     }
 
+    @Override
     public String description() {
         return super.description() + String.format("Experience Value: %d\t", expValue);
+    }
+
+    @Override
+    protected void onDeathMsg(){
+        callBack.send(String.format("%s died. %s gained %d experience",
+                getName(), board.getPlayer().getName(), expValue));
     }
 }

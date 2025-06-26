@@ -78,8 +78,10 @@ public abstract class Player extends Unit implements HeroicUnit {
 
     public void gainExperience(int expValue){
         experience += expValue;
-        if(experience >= getLevelUpExp() * level)
+        while(experience >= getLevelUpExp() * level){
             levelUp();
+            onLevelUpMsg();
+        }
     }
     public String description(){
         return super.description()+String.format("Level: %d\tExperience: %d\t",level,experience);
@@ -93,6 +95,10 @@ public abstract class Player extends Unit implements HeroicUnit {
         attack += getAttackGain() * level;
         defence += getDefenceGain() * level;
     }
+    protected String levelUpString(){
+        return String.format("%s reached level %d: +%d Health, +%d Attack, +%d Defense"
+                ,getName(), level, getHealthPoolGain(), getAttackGain(), getDefenceGain());
+    }
 
     protected List<Enemy> getEnemiesInRange(int range, boolean inclusive){
         List<Enemy> inRangeEnemies = new LinkedList<>();
@@ -103,5 +109,13 @@ public abstract class Player extends Unit implements HeroicUnit {
             }
         }
         return inRangeEnemies;
+    }
+
+    @Override
+    protected void onDeathMsg(){
+        callBack.send(getName() + " died.");
+    }
+    protected void onLevelUpMsg(){
+        callBack.send(levelUpString());
     }
 }

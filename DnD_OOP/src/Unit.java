@@ -5,6 +5,7 @@ abstract public class Unit extends Tile {
     protected int healthAmount;
     protected int attack;
     protected int defence;
+    protected MessageCallBack callBack;
 
     public Unit(int x, int y, char tile, String name, Board board, int healthPool, int healthAmount, int attack, int defence){
         super(tile,x,y);
@@ -14,6 +15,7 @@ abstract public class Unit extends Tile {
         this.attack = attack;
         this.defence = defence;
         this.board = board;
+        callBack = CLI::display;
     }
 
     public void moveUp() {
@@ -74,6 +76,8 @@ abstract public class Unit extends Tile {
 
     public void takeDamage(int damageTaken) {
         this.healthAmount = Math.max(0, healthAmount - damageTaken);
+        if(isDead())
+            onDeathMsg();
     }
 
     public void heal(int healAmount){
@@ -110,4 +114,9 @@ abstract public class Unit extends Tile {
     public abstract void attack(Enemy m);
 
     public abstract boolean canMoveTo(Tile target);
+
+    protected abstract void onDeathMsg();
+    protected void descMsg(){
+        callBack.send(getName() + "\t" + description());
+    }
 }
