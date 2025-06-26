@@ -50,16 +50,15 @@ public abstract class Player extends Unit implements HeroicUnit {
         return target.canMoveOn(this);
     }
     @Override
-    public void defend(Player p, int damage){}
+    public void defend(Player p, int damage, DamageCallBack dcb){}
     @Override
-    public void defend(Enemy m, int damage){
+    public void defend(Enemy m, int damage, DamageCallBack dcb){
         Random rnd = new Random();
         int defence = rnd.nextInt(this.defence+1);
-        if(defence<damage)
-            takeDamage(damage - defence);
-        //damage of (damage - defence) caused
-        //health remaining
-
+        int actualDamage = Math.max(damage - defence, 0);
+        dcb.damage(m.getName(), getName(), actualDamage);
+        if(actualDamage > 0)
+            takeDamage(actualDamage);
     }
     @Override
     public void attack(Enemy m){
@@ -68,7 +67,7 @@ public abstract class Player extends Unit implements HeroicUnit {
         //the defender rolled y
         Random rnd = new Random();
         int damage = rnd.nextInt(m.attack+1);
-        m.defend(this, damage);
+        m.defend(this, damage, COMBAT_CALLBACK);
     }
     @Override
     public void attack(Player p){

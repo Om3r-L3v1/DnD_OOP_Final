@@ -34,12 +34,13 @@ public class Warrior extends Player{
         //temporary
         if(canCast()) {
             remainingCooldown = abilityCooldown;
-            healthAmount = Math.min(healthAmount+10*defence, healthPool);
+            heal(10 * defence);
             List<Enemy> inRangeEnemies = getEnemiesInRange(ABILITY_RANGE, false);
             if(inRangeEnemies.size()>0){
                 Random rnd = new Random();
                 int index = rnd.nextInt(inRangeEnemies.size());
                 Enemy enemy = inRangeEnemies.get(index);
+                enemy.defend(this, (int)Math.ceil(healthPool/10.0), ABILITY_CALLBACK);
                 enemy.takeDamage((int)Math.ceil(healthPool/10.0));
             }
         }

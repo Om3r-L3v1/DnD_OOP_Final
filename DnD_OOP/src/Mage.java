@@ -45,7 +45,7 @@ public class Mage extends Player{
             List<Enemy> inRangeEnemies = getEnemiesInRange(abilityRange, false);
             while (hits < hitsCount && !inRangeEnemies.isEmpty()) {
                 Enemy target = inRangeEnemies.get(rnd.nextInt(inRangeEnemies.size()));
-                target.defend(this, spellPower);
+                target.defend(this, spellPower, ABILITY_CALLBACK);
                 if (target.getHealthAmount() == 0)
                     inRangeEnemies.remove(target);
                 hits++;

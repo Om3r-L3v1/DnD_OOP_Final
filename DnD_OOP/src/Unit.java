@@ -1,4 +1,7 @@
 abstract public class Unit extends Tile {
+    protected static final DamageCallBack COMBAT_CALLBACK = CLI::combatDamage;
+    protected static final DamageCallBack ABILITY_CALLBACK = CLI::abilityDamage;
+
     protected String name;
     protected Board board;
     protected int healthPool;
@@ -108,8 +111,8 @@ abstract public class Unit extends Tile {
         return result;
     }
 
-    public abstract void defend(Player p, int damage);
-    public abstract void defend(Enemy m, int damage);
+    public abstract void defend(Player p, int damage, DamageCallBack dcb);
+    public abstract void defend(Enemy m, int damage, DamageCallBack dcb);
     public abstract void attack(Player p);
     public abstract void attack(Enemy m);
 

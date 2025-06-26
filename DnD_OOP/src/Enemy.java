@@ -9,17 +9,17 @@ public abstract class Enemy extends Unit {
     }
 
     @Override
-    public void defend(Player p, int damage) {
+    public void defend(Player p, int damage, DamageCallBack dcb) {
         Random rnd = new Random();
         int defence = rnd.nextInt(this.defence + 1);
-        if (defence < damage) {
-            takeDamage(damage - defence);
+        int actualDamage = Math.max(damage - defence, 0);
+        dcb.damage(p.getName(), getName(), actualDamage);
+        if (actualDamage > 0) {
+            takeDamage(actualDamage);
             if (isDead()) {
                 p.gainExperience(expValue);
             }
         }
-        //damage of (damage - defence) caused
-        //health remaining
     }
 
     @Override
@@ -29,11 +29,11 @@ public abstract class Enemy extends Unit {
         //the defender roled y
         Random rnd = new Random();
         int damage = rnd.nextInt(this.attack + 1);
-        p.defend(this, damage);
+        p.defend(this, damage, COMBAT_CALLBACK);
     }
 
     @Override
-    public void defend(Enemy m, int damage) {
+    public void defend(Enemy m, int damage, DamageCallBack dcb) {
 
     }
 
