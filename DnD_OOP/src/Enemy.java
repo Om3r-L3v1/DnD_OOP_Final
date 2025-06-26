@@ -12,10 +12,11 @@ public abstract class Enemy extends Unit {
     public void defend(Player p, int damage, DamageCallBack dcb) {
         Random rnd = new Random();
         int defence = rnd.nextInt(this.defence + 1);
+        p.defenceRollMsg(defence);
         int actualDamage = Math.max(damage - defence, 0);
         dcb.damage(p.getName(), getName(), actualDamage);
         if (actualDamage > 0) {
-            takeDamage(actualDamage);
+            takeDamage(actualDamage, p);
             if (isDead()) {
                 p.gainExperience(expValue);
             }
@@ -24,11 +25,10 @@ public abstract class Enemy extends Unit {
 
     @Override
     public void attack(Player p) {
-        //player name is attacking monster name
-        //you role the attack you got x
-        //the defender roled y
+        onCombatMsg(p);
         Random rnd = new Random();
         int damage = rnd.nextInt(this.attack + 1);
+        attackRollMsg(damage);
         p.defend(this, damage, COMBAT_CALLBACK);
     }
 
@@ -56,8 +56,8 @@ public abstract class Enemy extends Unit {
     }
 
     @Override
-    public void takeDamage(int damageTaken) {
-        super.takeDamage(damageTaken);
+    public void takeDamage(int damageTaken, Unit dealer) {
+        super.takeDamage(damageTaken, dealer);
         if (isDead()) {
             board.removeEnemy(this);
         }
@@ -69,8 +69,8 @@ public abstract class Enemy extends Unit {
     }
 
     @Override
-    protected void onDeathMsg(){
+    protected void onDeathMsg(Unit killer){
         callBack.send(String.format("%s died. %s gained %d experience",
-                getName(), board.getPlayer().getName(), expValue));
+                getName(), killer.getName(), expValue));
     }
 }

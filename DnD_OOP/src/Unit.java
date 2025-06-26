@@ -77,10 +77,10 @@ abstract public class Unit extends Tile {
         return healthAmount;
     }
 
-    public void takeDamage(int damageTaken) {
+    public void takeDamage(int damageTaken, Unit dealer) {
         this.healthAmount = Math.max(0, healthAmount - damageTaken);
         if(isDead())
-            onDeathMsg();
+            onDeathMsg(dealer);
     }
 
     public void heal(int healAmount){
@@ -118,8 +118,19 @@ abstract public class Unit extends Tile {
 
     public abstract boolean canMoveTo(Tile target);
 
-    protected abstract void onDeathMsg();
+    protected abstract void onDeathMsg(Unit killer);
     protected void descMsg(){
         callBack.send(getName() + "\t" + description());
+    }
+    protected void onCombatMsg(Unit target){
+        callBack.send(String.format("%s engaged in combat with %s.", getName(), target.getName()));
+        descMsg();
+        target.descMsg();
+    }
+    protected void attackRollMsg(int attack){
+        callBack.send(String.format("%s rolled %d attack points.", getName(), attack));
+    }
+    protected void defenceRollMsg(int defence){
+        callBack.send(String.format("%s rolled %d defence points.", getName(), defence));
     }
 }

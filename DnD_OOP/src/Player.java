@@ -25,9 +25,13 @@ public abstract class Player extends Unit implements HeroicUnit {
     protected int getDefenceGain(){return DEFENCE_GAIN;}
 
     @Override
-    public void castAbility() {
-
+    public void castAbility(){
+        if(canCast()){
+            cast();
+        }
     }
+
+    protected abstract void cast();
 
     protected abstract boolean canCast();
 
@@ -39,12 +43,15 @@ public abstract class Player extends Unit implements HeroicUnit {
     @Override
     public boolean canMoveOn(Monster m){
         m.attack(this);
+        return false; // Player will turn into X on death. will never allow move.
+    }
+    @Override
+    public void takeDamage(int damageTaken, Unit dealer){
+        super.takeDamage(damageTaken, dealer);
         if(isDead()){
             tile = PLAYER_DEAD_CHAR;
         }
-        return false;
     }
-
     @Override
     public boolean canMoveTo(Tile target){
         return target.canMoveOn(this);
@@ -58,7 +65,7 @@ public abstract class Player extends Unit implements HeroicUnit {
         int actualDamage = Math.max(damage - defence, 0);
         dcb.damage(m.getName(), getName(), actualDamage);
         if(actualDamage > 0)
-            takeDamage(actualDamage);
+            takeDamage(actualDamage, m);
     }
     @Override
     public void attack(Enemy m){
@@ -111,10 +118,12 @@ public abstract class Player extends Unit implements HeroicUnit {
     }
 
     @Override
-    protected void onDeathMsg(){
-        callBack.send(getName() + " died.");
+    protected void onDeathMsg(Unit killer){
+        callBack.send(String.format("%s as killed by %s.", getName(), killer.getName()));
     }
     protected void onLevelUpMsg(){
         callBack.send(levelUpString());
     }
+
+    public abstract void cantCastMsg(String reason);
 }

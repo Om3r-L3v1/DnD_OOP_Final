@@ -37,19 +37,18 @@ public class Mage extends Player{
     }
 
     @Override
-    public void castAbility() {
-        if(canCast()) {
-            Random rnd = new Random();
-            currentMana = currentMana - manaCost;
-            int hits = 0;
-            List<Enemy> inRangeEnemies = getEnemiesInRange(abilityRange, false);
-            while (hits < hitsCount && !inRangeEnemies.isEmpty()) {
-                Enemy target = inRangeEnemies.get(rnd.nextInt(inRangeEnemies.size()));
-                target.defend(this, spellPower, ABILITY_CALLBACK);
-                if (target.getHealthAmount() == 0)
-                    inRangeEnemies.remove(target);
-                hits++;
-            }
+    protected void cast(){
+        onCastMsg(null);
+        Random rnd = new Random();
+        currentMana = currentMana - manaCost;
+        int hits = 0;
+        List<Enemy> inRangeEnemies = getEnemiesInRange(abilityRange, false);
+        while (hits < hitsCount && !inRangeEnemies.isEmpty()) {
+            Enemy target = inRangeEnemies.get(rnd.nextInt(inRangeEnemies.size()));
+            target.defend(this, spellPower, ABILITY_CALLBACK);
+            if (target.getHealthAmount() == 0)
+                inRangeEnemies.remove(target);
+            hits++;
         }
     }
 
@@ -64,7 +63,11 @@ public class Mage extends Player{
     }
     @Override
     protected boolean canCast(){
-        return currentMana >= manaCost;
+        if(currentMana < manaCost){
+            cantCastMsg(String.format("there was not enough mana: %d/%d.", currentMana, manaCost));
+            return false;
+        }
+        return true;
     }
     @Override
     public void gameTick(){
@@ -81,5 +84,14 @@ public class Mage extends Player{
 
     private void chargeMana(int amount){
         currentMana = Math.min(manaPool, currentMana + amount);
+    }
+
+    @Override
+    public void onCastMsg(String targetName) {
+        callBack.send(String.format("%s cast %s.",getName(),this.getAbilityName()));
+    }
+    @Override
+    public void cantCastMsg(String reason) {
+        callBack.send(String.format("%s tried to cast %s, but %s", getName(), getAbilityName(), reason));
     }
 }

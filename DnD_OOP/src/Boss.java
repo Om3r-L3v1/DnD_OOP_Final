@@ -14,6 +14,7 @@ public class Boss extends Monster implements HeroicUnit {
     public void castAbility() {
         //Assuming the player is in vision range
         Player p = board.getPlayer();
+        onCastMsg(p.getName());
         p.defend(this, attack, ABILITY_CALLBACK);
     }
 
@@ -39,5 +40,10 @@ public class Boss extends Monster implements HeroicUnit {
             combatTicks = 0;
             moveRandom();
         }
+    }
+
+    @Override
+    public void onCastMsg(String targetName) {
+        callBack.send(String.format("%s cast %s on %s.",getName(), getAbilityName(), targetName));
     }
 }
