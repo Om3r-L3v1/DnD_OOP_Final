@@ -1,10 +1,14 @@
 abstract public class Unit extends Tile {
+    protected static final DamageCallBack COMBAT_CALLBACK = CLI::combatDamage;
+    protected static final DamageCallBack ABILITY_CALLBACK = CLI::abilityDamage;
+
     protected String name;
     protected Board board;
     protected int healthPool;
     protected int healthAmount;
     protected int attack;
     protected int defence;
+    protected MessageCallBack callBack;
 
     public Unit(int x, int y, char tile, String name, Board board, int healthPool, int healthAmount, int attack, int defence){
         super(tile,x,y);
@@ -14,6 +18,7 @@ abstract public class Unit extends Tile {
         this.attack = attack;
         this.defence = defence;
         this.board = board;
+        callBack = CLI::display;
     }
 
     public void moveUp() {
@@ -72,8 +77,10 @@ abstract public class Unit extends Tile {
         return healthAmount;
     }
 
-    public void takeDamage(int damageTaken) {
+    public void takeDamage(int damageTaken, Unit dealer) {
         this.healthAmount = Math.max(0, healthAmount - damageTaken);
+        if(isDead())
+            onDeathMsg(dealer);
     }
 
     public void heal(int healAmount){
@@ -104,10 +111,26 @@ abstract public class Unit extends Tile {
         return result;
     }
 
-    public abstract void defend(Player p, int damage);
-    public abstract void defend(Enemy m, int damage);
+    public abstract void defend(Player p, int damage, DamageCallBack dcb);
+    public abstract void defend(Enemy m, int damage, DamageCallBack dcb);
     public abstract void attack(Player p);
     public abstract void attack(Enemy m);
 
     public abstract boolean canMoveTo(Tile target);
+
+    protected abstract void onDeathMsg(Unit killer);
+    protected void descMsg(){
+        callBack.send(getName() + "\t" + description());
+    }
+    protected void onCombatMsg(Unit target){
+        callBack.send(String.format("%s engaged in combat with %s.", getName(), target.getName()));
+        descMsg();
+        target.descMsg();
+    }
+    protected void attackRollMsg(int attack){
+        callBack.send(String.format("%s rolled %d attack points.", getName(), attack));
+    }
+    protected void defenceRollMsg(int defence){
+        callBack.send(String.format("%s rolled %d defence points.", getName(), defence));
+    }
 }

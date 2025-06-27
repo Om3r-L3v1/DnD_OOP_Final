@@ -21,6 +21,7 @@ public class Rouge extends Player {
     @Override
     protected boolean canCast() {
         if (currentEnergy < cost) {
+            cantCastMsg(String.format("but there was not enough energy: %d/%d.",currentEnergy, cost));
             return false;
         }
         return true;
@@ -32,17 +33,18 @@ public class Rouge extends Player {
     public String getAbilityName(){
         return ROGUE_ABILITY;
     }
+
     @Override
-    public void castAbility() {
-        if (canCast()) {
-            currentEnergy -= cost;
-            for (Enemy e : board.getEnemies()) {
-                if (this.getRange(e) < ABILITY_RANGE) {
-                    e.defend(this, attack);
-                }
+    public void cast(){
+        onCastMsg(null);
+        currentEnergy -= cost;
+        for (Enemy e : board.getEnemies()) {
+            if (this.getRange(e) < ABILITY_RANGE) {
+                e.defend(this, attack, ABILITY_CALLBACK);
             }
         }
     }
+
     @Override
     public void gameTick() {
         currentEnergy = Math.min(ENERGY_MAX, currentEnergy + ENERGY_REGEN);
@@ -54,5 +56,13 @@ public class Rouge extends Player {
         currentEnergy = getEnergyMax();
     }
 
+    @Override
+    public void onCastMsg(String targetName) {
+        callBack.send(String.format("%s cast %s.",getName(),this.getAbilityName()));
+    }
+    @Override
+    public void cantCastMsg(String reason) {
+        callBack.send(String.format("%s tried to cast %s, but %s", getName(), getAbilityName(), reason));
+    }
 }
 

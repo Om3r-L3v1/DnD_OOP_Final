@@ -25,9 +25,13 @@ public abstract class Player extends Unit implements HeroicUnit {
     protected int getDefenceGain(){return DEFENCE_GAIN;}
 
     @Override
-    public void castAbility() {
-
+    public void castAbility(){
+        if(canCast()){
+            cast();
+        }
     }
+
+    protected abstract void cast();
 
     protected abstract boolean canCast();
 
@@ -39,27 +43,29 @@ public abstract class Player extends Unit implements HeroicUnit {
     @Override
     public boolean canMoveOn(Monster m){
         m.attack(this);
+        return false; // Player will turn into X on death. will never allow move.
+    }
+    @Override
+    public void takeDamage(int damageTaken, Unit dealer){
+        super.takeDamage(damageTaken, dealer);
         if(isDead()){
             tile = PLAYER_DEAD_CHAR;
         }
-        return false;
     }
-
     @Override
     public boolean canMoveTo(Tile target){
         return target.canMoveOn(this);
     }
     @Override
-    public void defend(Player p, int damage){}
+    public void defend(Player p, int damage, DamageCallBack dcb){}
     @Override
-    public void defend(Enemy m, int damage){
+    public void defend(Enemy m, int damage, DamageCallBack dcb){
         Random rnd = new Random();
         int defence = rnd.nextInt(this.defence+1);
-        if(defence<damage)
-            takeDamage(damage - defence);
-        //damage of (damage - defence) caused
-        //health remaining
-
+        int actualDamage = Math.max(damage - defence, 0);
+        dcb.damage(m.getName(), getName(), actualDamage);
+        if(actualDamage > 0)
+            takeDamage(actualDamage, m);
     }
     @Override
     public void attack(Enemy m){
@@ -68,7 +74,7 @@ public abstract class Player extends Unit implements HeroicUnit {
         //the defender rolled y
         Random rnd = new Random();
         int damage = rnd.nextInt(m.attack+1);
-        m.defend(this, damage);
+        m.defend(this, damage, COMBAT_CALLBACK);
     }
     @Override
     public void attack(Player p){
@@ -78,8 +84,10 @@ public abstract class Player extends Unit implements HeroicUnit {
 
     public void gainExperience(int expValue){
         experience += expValue;
-        if(experience >= getLevelUpExp() * level)
+        while(experience >= getLevelUpExp() * level){
             levelUp();
+            onLevelUpMsg();
+        }
     }
     public String description(){
         return super.description()+String.format("Level: %d\tExperience: %d\t",level,experience);
@@ -93,6 +101,10 @@ public abstract class Player extends Unit implements HeroicUnit {
         attack += getAttackGain() * level;
         defence += getDefenceGain() * level;
     }
+    protected String levelUpString(){
+        return String.format("%s reached level %d: +%d Health, +%d Attack, +%d Defense"
+                ,getName(), level, getHealthPoolGain(), getAttackGain(), getDefenceGain());
+    }
 
     protected List<Enemy> getEnemiesInRange(int range, boolean inclusive){
         List<Enemy> inRangeEnemies = new LinkedList<>();
@@ -104,4 +116,14 @@ public abstract class Player extends Unit implements HeroicUnit {
         }
         return inRangeEnemies;
     }
+
+    @Override
+    protected void onDeathMsg(Unit killer){
+        callBack.send(String.format("%s as killed by %s.", getName(), killer.getName()));
+    }
+    protected void onLevelUpMsg(){
+        callBack.send(levelUpString());
+    }
+
+    public abstract void cantCastMsg(String reason);
 }

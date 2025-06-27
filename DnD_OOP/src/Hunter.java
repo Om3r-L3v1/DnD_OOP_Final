@@ -22,34 +22,43 @@ public class Hunter extends Player{
     public String getAbilityName(){
         return HUNTER_ABILITY;
     }
+
     @Override
-    public void castAbility(){
-        if(canCast()){
-            arrowsCount--;
-            Random rnd = new Random();
-            List<Enemy> closest = new LinkedList<>();
-            int closestRange = -1;
-            for(Enemy e : board.getEnemies()) {
-                int enemyRange = getRange(e);
-                if(enemyRange <= range) {
-                    if(enemyRange == closestRange)
-                        closest.add(e);
-                    else if (enemyRange < range) {
-                        closest = new LinkedList<>();
-                        closest.add(e);
-                    }
+    protected void cast(){
+        arrowsCount--;
+        Random rnd = new Random();
+        List<Enemy> closest = new LinkedList<>();
+        int closestRange = -1;
+        for(Enemy e : board.getEnemies()) {
+            int enemyRange = getRange(e);
+            if(enemyRange <= range) {
+                if(enemyRange == closestRange)
+                    closest.add(e);
+                else if (enemyRange < range) {
+                    closest = new LinkedList<>();
+                    closest.add(e);
                 }
             }
-            Enemy target = closest.get(rnd.nextInt(closest.size()));
-            target.defend(this, attack);
         }
+        Enemy target = closest.get(rnd.nextInt(closest.size()));
+        onCastMsg(target.getName());
+        target.defend(this, attack, ABILITY_CALLBACK);
     }
+
     public String description(){
         return super.description()+String.format("Arrows: %d\tRange: /%d",arrowsCount,range );
     }
     @Override
     protected boolean canCast(){
-        return arrowsCount > 0 && !getEnemiesInRange(range, true).isEmpty();
+        if(arrowsCount == 0){
+            cantCastMsg("there are no arrows in the quiver.");
+            return false;
+        }
+        else if(getEnemiesInRange(range, true).isEmpty()){
+            cantCastMsg("there were no enemies in range.");
+            return false;
+        }
+        return true;
     }
 
     @Override
@@ -67,5 +76,14 @@ public class Hunter extends Player{
         arrowsCount += 10 * level;
         attack += 2 * level;
         defence += level;
+    }
+
+    @Override
+    public void onCastMsg(String targetName) {
+        callBack.send(String.format("%s fired an arrow at %s.",getName(),targetName));
+    }
+    @Override
+    public void cantCastMsg(String reason) {
+        callBack.send(String.format("%s tried to shoot an arrow, but %s",getName(),reason));
     }
 }
