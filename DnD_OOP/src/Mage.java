@@ -59,7 +59,7 @@ public class Mage extends Player{
     }
     @Override
     public String description(){
-        return super.description()+String.format("Mana: %d/%d\tSpell Power: /%d",currentMana,manaPool,spellPower );
+        return super.description()+String.format("Mana: %d/%d\tSpell Power: %d\t",currentMana,manaPool,spellPower );
     }
     @Override
     protected boolean canCast(){

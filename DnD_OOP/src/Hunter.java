@@ -46,7 +46,7 @@ public class Hunter extends Player{
     }
 
     public String description(){
-        return super.description()+String.format("Arrows: %d\tRange: /%d",arrowsCount,range );
+        return super.description()+String.format("Arrows: %d\tRange: %d\t",arrowsCount,range );
     }
     @Override
     protected boolean canCast(){

@@ -1,6 +1,7 @@
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.util.LinkedList;
 import java.util.List;
 
 public class Board {
@@ -10,6 +11,7 @@ public class Board {
 
     public Board(Player player){
         this.player = player;
+
     }
     public void init(Tile[][] tiles,List<Enemy> enemies){
         this.tiles = tiles;
@@ -19,21 +21,21 @@ public class Board {
     public List<Enemy> getEnemies(){return enemies;}
     public boolean EnemiesDead(){return enemies.isEmpty();}
     public Player getPlayer(){return player;}
-    public int height(){return tiles[0].length;}
-    public int width(){return tiles.length;}
+    public int height(){return tiles.length;}
+    public int width(){return tiles[0].length;}
 
-    public Tile getTile(int x, int y){return tiles[x][y];}
-    public void swapPlaces(Tile t1, Tile t2){
-        int x1 = t1.getX();
-        int y1 = t1.getY();
+    public Tile getTile(int x, int y){return tiles[y][x];}
+    public void swapPlaces(int x1, int y1, int x2, int y2){
+        Tile t1 = getTile(x1,y1);
+        Tile t2 = getTile(x2,y2);
 
-        t1.setX(t2.getX());
-        t1.setY(t2.getY());
+        t1.setX(x2);
+        t1.setY(y2);
         t2.setX(x1);
         t2.setY(y1);
 
-        tiles[t1.getX()][t1.getY()] = t1;
-        tiles[t2.getX()][t2.getY()] = t2;
+        tiles[y2][x2] = t1;
+        tiles[y1][x1] = t2;
     }
 
     public void removeEnemy(Enemy e){
@@ -50,5 +52,4 @@ public class Board {
         }
         return toString.toString();
     }
-
 }

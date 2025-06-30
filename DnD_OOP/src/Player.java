@@ -62,6 +62,7 @@ public abstract class Player extends Unit implements HeroicUnit {
     public void defend(Enemy m, int damage, DamageCallBack dcb){
         Random rnd = new Random();
         int defence = rnd.nextInt(this.defence+1);
+        defenceRollMsg(defence);
         int actualDamage = Math.max(damage - defence, 0);
         dcb.damage(m.getName(), getName(), actualDamage);
         if(actualDamage > 0)
@@ -69,12 +70,11 @@ public abstract class Player extends Unit implements HeroicUnit {
     }
     @Override
     public void attack(Enemy m){
-        //monster name is attacking player name
-        //you role the attack you got x
-        //the defender rolled y
+        onCombatMsg(m);
         Random rnd = new Random();
         int damage = rnd.nextInt(m.attack+1);
-        m.defend(this, damage, combatCallback);
+        attackRollMsg(damage);
+        m.defend(this, damage, COMBAT_CALLBACK);
     }
     @Override
     public void attack(Player p){
@@ -126,4 +126,7 @@ public abstract class Player extends Unit implements HeroicUnit {
     }
 
     public abstract void cantCastMsg(String reason);
+    public void descriptionMsg(){
+        callBack.send(description());
+    }
 }

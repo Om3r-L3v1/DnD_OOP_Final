@@ -30,7 +30,7 @@ abstract public class Unit extends Tile {
         if(y != 0){
             Tile target = board.getTile(x, y-1);
             if(canMoveTo(target)){
-                board.swapPlaces(this, target);
+                board.swapPlaces(x,y, x,y-1);
             }
         }
     }
@@ -39,7 +39,7 @@ abstract public class Unit extends Tile {
         if(y != board.height()){
             Tile target = board.getTile(x, y+1);
             if(canMoveTo(target)){
-                board.swapPlaces(this, target);
+                board.swapPlaces(x,y, x,y+1);
             }
         }
     }
@@ -48,7 +48,7 @@ abstract public class Unit extends Tile {
         if(x != 0){
             Tile target = board.getTile(x-1, y);
             if(canMoveTo(target)){
-                board.swapPlaces(this, target);
+                board.swapPlaces(x,y, x-1,y);
             }
         }
     }
@@ -57,7 +57,7 @@ abstract public class Unit extends Tile {
         if(x != board.width()){
             Tile target = board.getTile(x+1, y);
             if(canMoveTo(target)){
-                board.swapPlaces(this, target);
+                board.swapPlaces(x,y,x+1,y);
             }
         }
     }
