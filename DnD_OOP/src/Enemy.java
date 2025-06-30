@@ -3,8 +3,8 @@ import java.util.Random;
 public abstract class Enemy extends Unit {
     int expValue;
 
-    public Enemy(char tile, String name, int healthPool, int healthAmount, int attack, int defence, int expValue) {
-        super(tile, name, healthPool, healthAmount, attack, defence);
+    public Enemy(char tile, String name, int healthPool, int healthAmount, int attack, int defence, int expValue, Color color) {
+        super(tile, name, healthPool, healthAmount, attack, defence,color);
         this.expValue = expValue;
     }
 

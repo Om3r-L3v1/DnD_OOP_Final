@@ -20,3 +20,4 @@ public class CLI {
                 attackerName, damage, defenderName));
     }
 }
+

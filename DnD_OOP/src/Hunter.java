@@ -11,8 +11,8 @@ public class Hunter extends Player{
     private int ticksCount;
 
     public Hunter(String name, int healthPool, int healthAmount, int attack, int defence,
-    int range) {
-        super(name, healthPool, healthAmount, attack, defence);
+    int range,Color color) {
+        super(name, healthPool, healthAmount, attack, defence,color);
         this.range = range;
         this.arrowsCount = 10 * level;
         this.ticksCount = 0;

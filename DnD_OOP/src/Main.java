@@ -8,7 +8,7 @@ import java.util.*;
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
     public static void main(String[] args) {
-        Player p = new Warrior("Jon Snow",300,300, 1000, 4,3);
+        Player p = new Warrior("Jon Snow",300,300, 1000, 4,3, Tile.Color.BLOOD_PURPLE);
         File folder = new File("levels_dir");
         File[] files = folder.listFiles();
         LevelInitializer levelInit = new LevelInitializer(p);
