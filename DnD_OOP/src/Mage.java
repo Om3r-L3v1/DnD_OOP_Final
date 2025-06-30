@@ -55,11 +55,12 @@ public class Mage extends Player{
     @Override
     protected String levelUpString(){
         return super.levelUpString() + String.format(", +%d Maximum Mana, +%d Spell Power"
-                ,getManaPoolGain()*level,getSpellPowerGain()*level);
+                ,getManaPoolGain()*level,getSpellPowerGain()*level) + String.format("\nRestored %d mana.", getManaCharge());
     }
     @Override
     public String description(){
-        return super.description()+String.format("Mana: %d/%d\tSpell Power: %d\t",currentMana,manaPool,spellPower );
+        return super.description()+String.format("Mana: %d/%d\tSpell Power: %d\tMana Cost: %d\t Hit Count: %d\t Range: %d\t"
+                ,currentMana,manaPool,spellPower, manaCost, hitsCount, abilityRange );
     }
     @Override
     protected boolean canCast(){

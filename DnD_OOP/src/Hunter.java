@@ -6,6 +6,10 @@ public class Hunter extends Player{
     private static final String HUNTER_ABILITY = "Shoot";
     private static final int ATTACK_EXTRA_GAIN = 2;
     private static final int DEFENCE_EXTRA_GAIN = 1;
+    private static final int RESTOCK_TICKS = 10;
+    private static final int ARROWS_RESTOCK = 10;
+    private static final int ARROWS_LEVELUP = 10;
+
     private int range;
     private int arrowsCount;
     private int ticksCount;
@@ -50,7 +54,7 @@ public class Hunter extends Player{
     }
 
     public String description(){
-        return super.description()+String.format("Arrows: %d\tRange: %d\t",arrowsCount,range );
+        return super.description()+String.format("Arrows: %d\tRange: %d\t",arrowsCount,range);
     }
     @Override
     protected boolean canCast(){
@@ -67,18 +71,22 @@ public class Hunter extends Player{
 
     @Override
     public void gameTick() {
-        if (ticksCount == 10) {
+        if (ticksCount == RESTOCK_TICKS) {
             ticksCount = 0;
-            arrowsCount += level;
+            arrowsCount += ARROWS_RESTOCK * level;
 
         }
         else ticksCount++;
     }
 
     @Override
+    protected String levelUpString(){
+        return super.levelUpString() + String.format("\nRestocked %d Arrows.", ARROWS_LEVELUP * level);
+    }
+    @Override
     protected void levelUp(){
         super.levelUp();
-        arrowsCount += 10 * level;
+        arrowsCount += ARROWS_LEVELUP * level;
     }
 
     @Override
