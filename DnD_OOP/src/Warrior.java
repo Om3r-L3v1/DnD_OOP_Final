@@ -47,7 +47,7 @@ public class Warrior extends Player{
 
     @Override
     public String description(){
-        return super.description()+String.format("CoolDown: %d/%d",remainingCooldown,abilityCooldown );
+        return super.description()+String.format("CoolDown: %d/%d\t",remainingCooldown,abilityCooldown );
     }
     @Override
     public void gameTick(){

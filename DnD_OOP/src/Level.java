@@ -6,15 +6,19 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Level {
+    private static final MessageCallBack DISPLAY_CALLBACK = CLI::display;
+
     private Player player;
     private Board board;
     private boolean levelOver;
     private Scanner scanner;
+    private MessageCallBack callBack;
 
     public Level(Player player, File levelFile){
         this.player = player;
         scanner = new Scanner(System.in);
         board = new Board(player, levelFile);
+        callBack = DISPLAY_CALLBACK;
     }
 
     public boolean play(){
@@ -23,14 +27,19 @@ public class Level {
             playerTurn();
             enemyTurn();
         }
-        if(player.isDead())
+        if(player.isDead()){
+            lossMsg();
             return false;
-        else
+        }
+        else{
+            winMsg();
             return true;
+        }
     }
 
     private void playerTurn(){
-        //print player info
+        boardMsg();
+        player.descriptionMsg();
 
         boolean validInput;
         String input;
@@ -81,4 +90,15 @@ public class Level {
     }
     public List<Enemy> getEnemies(){return board.getEnemies();}
     public Player getPlayer(){return player;}
+    private void boardMsg(){
+        callBack.send(board.toString());
+    }
+    private void lossMsg(){
+        callBack.send("You lost.");
+        boardMsg();
+        player.descMsg();
+    }
+    private void winMsg(){
+        callBack.send("Level complete!");
+    }
 }

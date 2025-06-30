@@ -27,7 +27,7 @@ public class Rouge extends Player {
         return true;
     }
     public String description(){
-        return super.description()+String.format("Energy: %d/%d",currentEnergy,getEnergyMax());
+        return super.description()+String.format("Energy: %d/%d\t",currentEnergy,getEnergyMax());
     }
     @Override
     public String getAbilityName(){

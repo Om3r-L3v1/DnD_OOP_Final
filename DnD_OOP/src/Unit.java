@@ -1,6 +1,7 @@
 abstract public class Unit extends Tile {
     protected static final DamageCallBack COMBAT_CALLBACK = CLI::combatDamage;
     protected static final DamageCallBack ABILITY_CALLBACK = CLI::abilityDamage;
+    protected static final MessageCallBack DISPLAY_CALLBACK = CLI::display;
 
     protected String name;
     protected Board board;
@@ -18,14 +19,14 @@ abstract public class Unit extends Tile {
         this.attack = attack;
         this.defence = defence;
         this.board = board;
-        callBack = CLI::display;
+        callBack = DISPLAY_CALLBACK;
     }
 
     public void moveUp() {
         if(y != 0){
             Tile target = board.getTile(x, y-1);
             if(canMoveTo(target)){
-                board.swapPlaces(this, target);
+                board.swapPlaces(x,y, x,y-1);
             }
         }
     }
@@ -34,7 +35,7 @@ abstract public class Unit extends Tile {
         if(y != board.height()){
             Tile target = board.getTile(x, y+1);
             if(canMoveTo(target)){
-                board.swapPlaces(this, target);
+                board.swapPlaces(x,y, x,y+1);
             }
         }
     }
@@ -43,7 +44,7 @@ abstract public class Unit extends Tile {
         if(x != 0){
             Tile target = board.getTile(x-1, y);
             if(canMoveTo(target)){
-                board.swapPlaces(this, target);
+                board.swapPlaces(x,y, x-1,y);
             }
         }
     }
@@ -52,7 +53,7 @@ abstract public class Unit extends Tile {
         if(x != board.width()){
             Tile target = board.getTile(x+1, y);
             if(canMoveTo(target)){
-                board.swapPlaces(this, target);
+                board.swapPlaces(x,y,x+1,y);
             }
         }
     }

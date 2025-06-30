@@ -12,7 +12,7 @@ public abstract class Enemy extends Unit {
     public void defend(Player p, int damage, DamageCallBack dcb) {
         Random rnd = new Random();
         int defence = rnd.nextInt(this.defence + 1);
-        p.defenceRollMsg(defence);
+        defenceRollMsg(defence);
         int actualDamage = Math.max(damage - defence, 0);
         dcb.damage(p.getName(), getName(), actualDamage);
         if (actualDamage > 0) {
@@ -47,7 +47,7 @@ public abstract class Enemy extends Unit {
     @Override
     public boolean canMoveOn(Player p) {
         p.attack(this);
-        return healthAmount == 0;
+        return isDead();
     }
 
     @Override
