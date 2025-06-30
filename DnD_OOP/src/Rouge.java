@@ -8,8 +8,8 @@ public class Rouge extends Player {
     private int cost;
     private int currentEnergy;
 
-    public Rouge(String name,int healthPool, int healthAmount, int attack, int defence, int cost) {
-        super(name, healthPool, healthAmount, attack, defence);
+    public Rouge(String name,int healthPool, int attack, int defence, int cost) {
+        super(name, healthPool, attack, defence);
         this.cost = cost;
         this.currentEnergy = getEnergyMax();
     }

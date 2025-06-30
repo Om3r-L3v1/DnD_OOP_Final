@@ -13,8 +13,8 @@ public abstract class Player extends Unit implements HeroicUnit {
     protected int experience;
     protected int level;
 
-    public Player(String name, int healthPool, int healthAmount, int attack, int defence) {
-        super(PLAYER_CHAR, name, healthPool, healthAmount, attack, defence);
+    public Player(String name, int healthPool, int attack, int defence) {
+        super(PLAYER_CHAR, name, healthPool, attack, defence);
         this.experience = 0;
         this.level = 1;
     }
@@ -126,7 +126,4 @@ public abstract class Player extends Unit implements HeroicUnit {
     }
 
     public abstract void cantCastMsg(String reason);
-    public void descriptionMsg(){
-        displayCallBack.send(description());
-    }
 }

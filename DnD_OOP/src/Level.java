@@ -1,23 +1,27 @@
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Scanner;
+import java.util.Map;
 
 public class Level {
-
     private Player player;
     private Board board;
     private boolean levelOver;
-    private Scanner scanner;
-    private MessageCallBack callBack;
+    private MessageCallBack displayCallBack;
+    private InputCallBack inputCallBack;
+    private Map<String, String> validActions;
 
-    public Level(Player player, Board board,MessageCallBack callBack){
+    public Level(Player player, Board board, MessageCallBack displayCallBack, InputCallBack inputCallBack){
         this.player = player;
-        scanner = new Scanner(System.in);
         this.board = board;
-        this.callBack = callBack;
+        this.displayCallBack = displayCallBack;
+        this.inputCallBack = inputCallBack;
+        validActions = Map.ofEntries(
+                Map.entry("w", "Move up"),
+                Map.entry("s", "Move down"),
+                Map.entry("a", "Move left"),
+                Map.entry("d", "Move right"),
+                Map.entry("e", "Cast \"" + player.getAbilityName() + "\""),
+                Map.entry("q", "Do nothing")
+        );
     }
 
     public boolean play(){
@@ -38,37 +42,30 @@ public class Level {
 
     private void playerTurn(){
         boardMsg();
-        player.descriptionMsg();
+        player.descMsg();
 
-        boolean validInput;
-        String input;
-        do{
-            validInput = true;
-            input = scanner.next();
-            switch (input.toLowerCase()){
-                case "w":
-                    player.moveUp();
-                    break;
-                case "s":
-                    player.moveDown();
-                    break;
-                case "a":
-                    player.moveLeft();
-                    break;
-                case "d":
-                    player.moveRight();
-                    break;
-                case "e":
-                    player.castAbility();
-                    break;
-                case "q":
-                    break;
-                default:
-                    //print message
-                    validInput = false;
-                    break;
-            }
-        }while(!validInput);
+        String action = getInput();
+        switch (action) {
+            case "w":
+                player.moveUp();
+                break;
+            case "s":
+                player.moveDown();
+                break;
+            case "a":
+                player.moveLeft();
+                break;
+            case "d":
+                player.moveRight();
+                break;
+            case "e":
+                player.castAbility();
+                break;
+            case "q":
+                break;
+            default:
+                throw new RuntimeException();
+        }
         player.gameTick();
         if(board.EnemiesDead())
             levelOver = true;
@@ -90,14 +87,17 @@ public class Level {
     public List<Enemy> getEnemies(){return board.getEnemies();}
     public Player getPlayer(){return player;}
     private void boardMsg(){
-        callBack.send(board.toString());
+        displayCallBack.send(board.toString());
     }
     private void lossMsg(){
-        callBack.send("You lost.");
+        displayCallBack.send("You lost.");
         boardMsg();
         player.descMsg();
     }
     private void winMsg(){
-        callBack.send("Level complete!");
+        displayCallBack.send("Level complete!");
+    }
+    private String getInput(){
+        return inputCallBack.getInput(validActions);
     }
 }
