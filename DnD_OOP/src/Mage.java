@@ -15,9 +15,9 @@ public class Mage extends Player{
     private int abilityRange;
 
 
-    public Mage(int x, int y, String name, Board board, int healthPool, int healthAmount, int attack, int defence,
+    public Mage(String name, int healthPool, int healthAmount, int attack, int defence,
                 int manaPool, int manaCost, int spellPower, int hitsCount, int abilityRange) {
-        super(x, y, name, board, healthPool, healthAmount, attack, defence);
+        super(name, healthPool, healthAmount, attack, defence);
 
         this.manaPool = manaPool;
         this.currentMana = getManaCharge();
@@ -45,7 +45,7 @@ public class Mage extends Player{
         List<Enemy> inRangeEnemies = getEnemiesInRange(abilityRange, false);
         while (hits < hitsCount && !inRangeEnemies.isEmpty()) {
             Enemy target = inRangeEnemies.get(rnd.nextInt(inRangeEnemies.size()));
-            target.defend(this, spellPower, ABILITY_CALLBACK);
+            target.defend(this, spellPower, abilityCallback);
             if (target.getHealthAmount() == 0)
                 inRangeEnemies.remove(target);
             hits++;
@@ -88,10 +88,10 @@ public class Mage extends Player{
 
     @Override
     public void onCastMsg(String targetName) {
-        callBack.send(String.format("%s cast %s.",getName(),this.getAbilityName()));
+        displayCallBack.send(String.format("%s cast %s.",getName(),this.getAbilityName()));
     }
     @Override
     public void cantCastMsg(String reason) {
-        callBack.send(String.format("%s tried to cast %s, but %s", getName(), getAbilityName(), reason));
+        displayCallBack.send(String.format("%s tried to cast %s, but %s", getName(), getAbilityName(), reason));
     }
 }

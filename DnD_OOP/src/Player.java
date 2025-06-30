@@ -13,8 +13,8 @@ public abstract class Player extends Unit implements HeroicUnit {
     protected int experience;
     protected int level;
 
-    public Player(int x, int y, String name, Board board, int healthPool, int healthAmount, int attack, int defence) {
-        super(x, y, PLAYER_CHAR, name, board, healthPool, healthAmount, attack, defence);
+    public Player(String name, int healthPool, int healthAmount, int attack, int defence) {
+        super(PLAYER_CHAR, name, healthPool, healthAmount, attack, defence);
         this.experience = 0;
         this.level = 1;
     }
@@ -74,7 +74,7 @@ public abstract class Player extends Unit implements HeroicUnit {
         //the defender rolled y
         Random rnd = new Random();
         int damage = rnd.nextInt(m.attack+1);
-        m.defend(this, damage, COMBAT_CALLBACK);
+        m.defend(this, damage, combatCallback);
     }
     @Override
     public void attack(Player p){
@@ -119,10 +119,10 @@ public abstract class Player extends Unit implements HeroicUnit {
 
     @Override
     protected void onDeathMsg(Unit killer){
-        callBack.send(String.format("%s as killed by %s.", getName(), killer.getName()));
+        displayCallBack.send(String.format("%s as killed by %s.", getName(), killer.getName()));
     }
     protected void onLevelUpMsg(){
-        callBack.send(levelUpString());
+        displayCallBack.send(levelUpString());
     }
 
     public abstract void cantCastMsg(String reason);

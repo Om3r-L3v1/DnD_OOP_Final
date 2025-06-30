@@ -3,10 +3,13 @@ abstract public class Tile {
     protected int y;
     protected char tile;
 
-    public Tile(char tile, int x, int y){
+    public Tile(char tile){
+        this.tile = tile;
+    }
+    public Tile init(int x,int y){
         this.x = x;
         this.y = y;
-        this.tile = tile;
+        return this;
     }
   
     public int getRange(Tile t){

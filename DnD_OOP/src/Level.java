@@ -11,10 +11,10 @@ public class Level {
     private boolean levelOver;
     private Scanner scanner;
 
-    public Level(Player player, File levelFile){
+    public Level(Player player, Board board){
         this.player = player;
         scanner = new Scanner(System.in);
-        board = new Board(player, levelFile);
+        this.board = board;
     }
 
     public boolean play(){

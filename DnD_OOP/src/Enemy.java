@@ -3,8 +3,8 @@ import java.util.Random;
 public abstract class Enemy extends Unit {
     int expValue;
 
-    public Enemy(int x, int y, char tile, String name, Board board, int healthPool, int healthAmount, int attack, int defence, int expValue) {
-        super(x, y, tile, name, board, healthPool, healthAmount, attack, defence);
+    public Enemy(char tile, String name, int healthPool, int healthAmount, int attack, int defence, int expValue) {
+        super(tile, name, healthPool, healthAmount, attack, defence);
         this.expValue = expValue;
     }
 
@@ -29,7 +29,7 @@ public abstract class Enemy extends Unit {
         Random rnd = new Random();
         int damage = rnd.nextInt(this.attack + 1);
         attackRollMsg(damage);
-        p.defend(this, damage, COMBAT_CALLBACK);
+        p.defend(this, damage, combatCallback);
     }
 
     @Override
@@ -70,7 +70,7 @@ public abstract class Enemy extends Unit {
 
     @Override
     protected void onDeathMsg(Unit killer){
-        callBack.send(String.format("%s died. %s gained %d experience",
+        displayCallBack.send(String.format("%s died. %s gained %d experience",
                 getName(), killer.getName(), expValue));
     }
 }

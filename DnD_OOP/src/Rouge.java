@@ -8,8 +8,8 @@ public class Rouge extends Player {
     private int cost;
     private int currentEnergy;
 
-    public Rouge(int x, int y, String name, Board board, int healthPool, int healthAmount, int attack, int defence, int cost) {
-        super(x, y, name, board, healthPool, healthAmount, attack, defence);
+    public Rouge(String name,int healthPool, int healthAmount, int attack, int defence, int cost) {
+        super(name, healthPool, healthAmount, attack, defence);
         this.cost = cost;
         this.currentEnergy = getEnergyMax();
     }
@@ -40,7 +40,7 @@ public class Rouge extends Player {
         currentEnergy -= cost;
         for (Enemy e : board.getEnemies()) {
             if (this.getRange(e) < ABILITY_RANGE) {
-                e.defend(this, attack, ABILITY_CALLBACK);
+                e.defend(this, attack, abilityCallback);
             }
         }
     }
@@ -58,11 +58,11 @@ public class Rouge extends Player {
 
     @Override
     public void onCastMsg(String targetName) {
-        callBack.send(String.format("%s cast %s.",getName(),this.getAbilityName()));
+        displayCallBack.send(String.format("%s cast %s.",getName(),this.getAbilityName()));
     }
     @Override
     public void cantCastMsg(String reason) {
-        callBack.send(String.format("%s tried to cast %s, but %s", getName(), getAbilityName(), reason));
+        displayCallBack.send(String.format("%s tried to cast %s, but %s", getName(), getAbilityName(), reason));
     }
 }
 
