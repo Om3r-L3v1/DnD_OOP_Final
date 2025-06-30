@@ -4,7 +4,12 @@ public class Monster extends Enemy {
     protected int visionRange;
 
     public Monster(char tile, String name, int healthPool, int healthAmount, int attack, int defence, int expValue, int visionRange) {
-        super(tile,name,healthPool,healthAmount,attack,defence,expValue);
+        super(tile,name,healthPool,healthAmount,attack,defence,expValue,Color.RED);
+        this.visionRange = visionRange;
+    }
+
+    public Monster(char tile, String name, int healthPool, int healthAmount, int attack, int defence, int expValue, int visionRange,Color color) {
+        super(tile,name,healthPool,healthAmount,attack,defence,expValue,color);
         this.visionRange = visionRange;
     }
 

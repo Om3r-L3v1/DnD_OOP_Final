@@ -13,8 +13,8 @@ public abstract class Player extends Unit implements HeroicUnit {
     protected int experience;
     protected int level;
 
-    public Player(String name, int healthPool, int healthAmount, int attack, int defence) {
-        super(PLAYER_CHAR, name, healthPool, healthAmount, attack, defence);
+    public Player(String name, int healthPool, int healthAmount, int attack, int defence,Color color) {
+        super(PLAYER_CHAR, name, healthPool, healthAmount, attack, defence, color);
         this.experience = 0;
         this.level = 1;
     }

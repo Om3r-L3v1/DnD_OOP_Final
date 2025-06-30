@@ -1,14 +1,13 @@
 public class Trap extends Enemy {
     private final int ATTACK_RANGE = 2;
-
     private int visibalityTime;
     private int invisibalityTime;
     private int ticksCount;
     private boolean visible;
 
     public Trap(char tile, String name, int healthPool, int healthAmount, int attack, int defence, int expValue,
-                   int visibalityTime, int invisibalityTime) {
-        super(tile,name,healthPool,healthAmount,attack,defence,expValue);
+                   int visibalityTime, int invisibalityTime, Color color) {
+        super(tile,name,healthPool,healthAmount,attack,defence,expValue,color);
         this.visibalityTime = visibalityTime;
         this.invisibalityTime = invisibalityTime;
         this.visible = true;
