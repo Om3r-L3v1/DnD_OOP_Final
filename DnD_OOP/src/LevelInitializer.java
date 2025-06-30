@@ -24,7 +24,7 @@ public class LevelInitializer {
             }
         }
         board.init(tiles, enemies);
-        return new Level(player, board);
+        return new Level(player, board,DISPLAY_CALLBACK);
     }
     private Tile charToTile(char c, int x, int y,Board board,List<Enemy> enemies) {
         TileFactory tileFactory = new TileFactory();

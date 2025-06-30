@@ -40,7 +40,7 @@ public class Board {
 
     public void removeEnemy(Enemy e){
         enemies.remove(e);
-        tiles[e.getX()][e.getY()] = new Empty().init(e.getX(),e.getY());
+        tiles[e.getY()][e.getX()] = new Empty().init(e.getX(),e.getY());
     }
     public String toString(){
         StringBuilder toString = new StringBuilder();

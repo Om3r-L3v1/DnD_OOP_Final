@@ -4,7 +4,8 @@ import java.util.Random;
 
 public class Hunter extends Player{
     private static final String HUNTER_ABILITY = "Shoot";
-
+    private static final int ATTACK_EXTRA_GAIN = 2;
+    private static final int DEFENCE_EXTRA_GAIN = 1;
     private int range;
     private int arrowsCount;
     private int ticksCount;
@@ -17,7 +18,10 @@ public class Hunter extends Player{
         this.ticksCount = 0;
     }
 
-
+    @Override
+    protected int getAttackGain(){return ATTACK_GAIN + ATTACK_EXTRA_GAIN;}
+    @Override
+    protected int getDefenceGain(){return DEFENCE_GAIN + DEFENCE_EXTRA_GAIN;}
     @Override
     public String getAbilityName(){
         return HUNTER_ABILITY;
@@ -66,6 +70,7 @@ public class Hunter extends Player{
         if (ticksCount == 10) {
             ticksCount = 0;
             arrowsCount += level;
+
         }
         else ticksCount++;
     }
@@ -74,8 +79,6 @@ public class Hunter extends Player{
     protected void levelUp(){
         super.levelUp();
         arrowsCount += 10 * level;
-        attack += 2 * level;
-        defence += level;
     }
 
     @Override

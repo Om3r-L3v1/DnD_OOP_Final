@@ -8,11 +8,12 @@ import java.util.*;
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
     public static void main(String[] args) {
-        Player p = new Warrior(0,0,"Jon Snow",null,300, 300, 30, 4,3);
-        File folder = new File("C:\\Users\\sarit\\Desktop\\Year A\\Semester B\\OOP\\Assignment 3\\levels_dir");
+        Player p = new Warrior("Jon Snow",300,300, 1000, 4,3);
+        File folder = new File("levels_dir");
         File[] files = folder.listFiles();
+        LevelInitializer levelInit = new LevelInitializer(p);
         for(File f : files){
-            Level l = new Level(p, f);
+            Level l = levelInit.initializeLevel(f);
             if(!l.play())
                 break;
         }

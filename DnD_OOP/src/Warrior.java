@@ -34,7 +34,7 @@ public class Warrior extends Player{
     @Override
     protected void cast(){
         onCastMsg(null);
-        remainingCooldown = abilityCooldown;
+        remainingCooldown = abilityCooldown+1;
         heal(DEFENCE_HEAL_FACTOR * defence);
         List<Enemy> inRangeEnemies = getEnemiesInRange(ABILITY_RANGE, false);
         if(!inRangeEnemies.isEmpty()){

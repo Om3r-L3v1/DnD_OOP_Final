@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Level {
-    private static final MessageCallBack DISPLAY_CALLBACK = CLI::display;
 
     private Player player;
     private Board board;
@@ -14,10 +13,11 @@ public class Level {
     private Scanner scanner;
     private MessageCallBack callBack;
 
-    public Level(Player player, Board board){
+    public Level(Player player, Board board,MessageCallBack callBack){
         this.player = player;
         scanner = new Scanner(System.in);
         this.board = board;
+        this.callBack = callBack;
     }
 
     public boolean play(){

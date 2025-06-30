@@ -72,9 +72,9 @@ public abstract class Player extends Unit implements HeroicUnit {
     public void attack(Enemy m){
         onCombatMsg(m);
         Random rnd = new Random();
-        int damage = rnd.nextInt(m.attack+1);
+        int damage = rnd.nextInt(attack+1);
         attackRollMsg(damage);
-        m.defend(this, damage, COMBAT_CALLBACK);
+        m.defend(this, damage, combatCallback);
     }
     @Override
     public void attack(Player p){
@@ -103,7 +103,7 @@ public abstract class Player extends Unit implements HeroicUnit {
     }
     protected String levelUpString(){
         return String.format("%s reached level %d: +%d Health, +%d Attack, +%d Defense"
-                ,getName(), level, getHealthPoolGain(), getAttackGain(), getDefenceGain());
+                ,getName(), level, getHealthPoolGain()*level, getAttackGain()*level, getDefenceGain()*level);
     }
 
     protected List<Enemy> getEnemiesInRange(int range, boolean inclusive){
@@ -127,6 +127,6 @@ public abstract class Player extends Unit implements HeroicUnit {
 
     public abstract void cantCastMsg(String reason);
     public void descriptionMsg(){
-        callBack.send(description());
+        displayCallBack.send(description());
     }
 }
