@@ -14,11 +14,10 @@ public class Level {
     private Scanner scanner;
     private MessageCallBack callBack;
 
-    public Level(Player player, File levelFile){
+    public Level(Player player, Board board){
         this.player = player;
         scanner = new Scanner(System.in);
-        board = new Board(player, levelFile);
-        callBack = DISPLAY_CALLBACK;
+        this.board = board;
     }
 
     public boolean play(){

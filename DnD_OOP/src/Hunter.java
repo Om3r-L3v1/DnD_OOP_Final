@@ -9,9 +9,9 @@ public class Hunter extends Player{
     private int arrowsCount;
     private int ticksCount;
 
-    public Hunter(int x, int y, String name, Board board, int healthPool, int healthAmount, int attack, int defence,
+    public Hunter(String name, int healthPool, int healthAmount, int attack, int defence,
     int range) {
-        super(x, y, name, board, healthPool, healthAmount, attack, defence);
+        super(name, healthPool, healthAmount, attack, defence);
         this.range = range;
         this.arrowsCount = 10 * level;
         this.ticksCount = 0;
@@ -42,7 +42,7 @@ public class Hunter extends Player{
         }
         Enemy target = closest.get(rnd.nextInt(closest.size()));
         onCastMsg(target.getName());
-        target.defend(this, attack, ABILITY_CALLBACK);
+        target.defend(this, attack, abilityCallback);
     }
 
     public String description(){
@@ -80,10 +80,10 @@ public class Hunter extends Player{
 
     @Override
     public void onCastMsg(String targetName) {
-        callBack.send(String.format("%s fired an arrow at %s.",getName(),targetName));
+        displayCallBack.send(String.format("%s fired an arrow at %s.",getName(),targetName));
     }
     @Override
     public void cantCastMsg(String reason) {
-        callBack.send(String.format("%s tried to shoot an arrow, but %s",getName(),reason));
+        displayCallBack.send(String.format("%s tried to shoot an arrow, but %s",getName(),reason));
     }
 }

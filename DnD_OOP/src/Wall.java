@@ -1,8 +1,8 @@
 public class Wall extends Tile {
     public static final char WALL_CHAR = '#';
 
-    public Wall(int x, int y){
-        super(WALL_CHAR,x,y);
+    public Wall(){
+        super(WALL_CHAR);
     }
 
     @Override

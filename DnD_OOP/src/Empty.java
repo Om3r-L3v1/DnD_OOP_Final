@@ -1,8 +1,8 @@
 public class Empty extends Tile{
     public static final char EMPTY_CHAR = '.';
 
-    public Empty(int x, int y){
-        super(EMPTY_CHAR,x,y);
+    public Empty(){
+        super(EMPTY_CHAR);
     }
 
     @Override

@@ -13,8 +13,8 @@ public class Warrior extends Player{
     private int abilityCooldown;
     private int remainingCooldown;
 
-    public Warrior(int x, int y, String name, Board board, int healthPool, int healthAmount, int attack, int defence, int abilityCooldown) {
-        super(x, y, name, board, healthPool, healthAmount, attack, defence);
+    public Warrior(String name, int healthPool, int healthAmount, int attack, int defence, int abilityCooldown) {
+        super(name, healthPool, healthAmount, attack, defence);
         this.remainingCooldown = 0;
         this.abilityCooldown = abilityCooldown;
     }
@@ -41,7 +41,7 @@ public class Warrior extends Player{
             Random rnd = new Random();
             int index = rnd.nextInt(inRangeEnemies.size());
             Enemy enemy = inRangeEnemies.get(index);
-            enemy.defend(this, (int)Math.ceil(healthPool * HEALTH_POOL_DAMAGE_FACTOR), ABILITY_CALLBACK);
+            enemy.defend(this, (int)Math.ceil(healthPool * HEALTH_POOL_DAMAGE_FACTOR), abilityCallback);
         }
     }
 
@@ -71,11 +71,11 @@ public class Warrior extends Player{
 
     @Override
     public void onCastMsg(String targetName) {
-        callBack.send(String.format("%s used %s, healing %d.",getName(),this.getAbilityName(),DEFENCE_HEAL_FACTOR*defence));
+        displayCallBack.send(String.format("%s used %s, healing %d.",getName(),this.getAbilityName(),DEFENCE_HEAL_FACTOR*defence));
     }
     @Override
     public void cantCastMsg(String reason) {
-        callBack.send(String.format("%s tried to cast %s, but %s", getName(), getAbilityName(), reason));
+        displayCallBack.send(String.format("%s tried to cast %s, but %s", getName(), getAbilityName(), reason));
     }
 
 }
