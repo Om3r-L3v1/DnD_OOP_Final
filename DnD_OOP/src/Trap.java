@@ -7,8 +7,8 @@ public class Trap extends Enemy {
     private boolean visible;
 
     public Trap(char tile, String name, int healthPool, int attack, int defence, int expValue,
-                   int visibalityTime, int invisibalityTime) {
-        super(tile,name,healthPool,attack,defence,expValue);
+                   int visibalityTime, int invisibalityTime, Color color) {
+        super(tile,name,healthPool,attack,defence,expValue,color);
         this.visibalityTime = visibalityTime;
         this.invisibalityTime = invisibalityTime;
         this.visible = true;
