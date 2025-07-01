@@ -10,8 +10,8 @@ public class Boss extends Monster implements HeroicUnit {
     private int combatTicks;
 
     public Boss(char tile, String name, int healthPool, int attack, int defence,
-                int expValue, int visionRange, int abilityFreq, Color color) {
-        super(tile, name, healthPool, attack, defence, expValue, visionRange,color);
+                int expValue, int visionRange, int abilityFreq) {
+        super(tile, name, healthPool, attack, defence, expValue, visionRange);
         this.abilityFreq = abilityFreq;
         this.combatTicks = 0;
     }

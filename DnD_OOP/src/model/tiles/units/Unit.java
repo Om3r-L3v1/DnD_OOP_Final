@@ -18,8 +18,8 @@ abstract public class Unit extends Tile {
     protected DamageCallBack abilityCallback;
     protected DamageCallBack combatCallback;
 
-    public Unit(char tile, String name, int healthPool, int attack, int defence, Color color){
-        super(tile,color);
+    public Unit(char tile, String name, int healthPool, int attack, int defence){
+        super(tile);
         this.name = name;
         this.healthPool = healthPool;
         this.healthAmount = healthPool;
@@ -73,7 +73,7 @@ abstract public class Unit extends Tile {
     }
 
     public String getName() {
-        return color.wrap(name);
+        return name;
     }
 
     protected void takeDamage(int damageTaken, Unit dealer) {

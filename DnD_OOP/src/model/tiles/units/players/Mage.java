@@ -20,8 +20,8 @@ public class Mage extends Player {
 
 
     public Mage(String name, int healthPool, int attack, int defence,
-                int manaPool, int manaCost, int spellPower, int hitsCount, int abilityRange, Color color) {
-        super(name, healthPool, attack, defence, color);
+                int manaPool, int manaCost, int spellPower, int hitsCount, int abilityRange) {
+        super(name, healthPool, attack, defence);
 
         this.manaPool = manaPool;
         this.currentMana = getManaCharge();
