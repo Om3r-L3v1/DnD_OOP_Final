@@ -22,7 +22,7 @@ public class Hunter extends Player {
     int range,Color color) {
         super(name, healthPool, attack, defence,color);
         this.range = range;
-        this.arrowsCount = 10 * level;
+        this.arrowsCount = RESTOCK_TICKS * level;
         this.ticksCount = 0;
     }
 
