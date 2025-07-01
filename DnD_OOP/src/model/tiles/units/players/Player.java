@@ -97,7 +97,7 @@ public abstract class Player extends Unit implements HeroicUnit {
         }
     }
     public String description(){
-        return super.description()+String.format("model.level.Level: %d\tExperience: %d\t",level,experience);
+        return super.description()+String.format("Level: %d\tExperience: %d\t",level,experience);
     }
 
     protected void levelUp(){
