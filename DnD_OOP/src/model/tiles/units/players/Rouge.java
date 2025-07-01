@@ -32,7 +32,7 @@ public class Rouge extends Player {
     }
     @Override
     public String description(){
-        return super.description()+String.format("Energy: %d/%d\t%s Energy Cost: %d",currentEnergy,getEnergyMax(), getAbilityName(), cost);
+        return super.description()+String.format("Energy: %d/%d\tEnergy Cost: %d",currentEnergy,getEnergyMax(), cost);
     }
     @Override
     public String getAbilityName(){
