@@ -94,7 +94,7 @@ public class Level {
         player.descriptionMsg();
     }
     private void winMsg(){
-        displayCallBack.send("model.level.Level complete!");
+        displayCallBack.send("Level complete!");
     }
     private String getInput(){
         return inputCallBack.getInput(validActions);
