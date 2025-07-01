@@ -2,6 +2,8 @@ package model.tiles.units.players;
 
 import model.tiles.units.enemies.Enemy;
 
+import java.util.List;
+
 public class Rouge extends Player {
     private static final String ROGUE_ABILITY = "Fan of Knives";
     private static final int ABILITY_RANGE = 2;
@@ -43,7 +45,7 @@ public class Rouge extends Player {
     public void cast(){
         onCastMsg(null);
         currentEnergy -= cost;
-        for (Enemy e : board.getEnemies()) {
+        for (Enemy e : getEnemiesInRange(ABILITY_RANGE, false)) {
             if (this.getRange(e) < ABILITY_RANGE) {
                 e.defend(this, attack, abilityCallback);
             }
