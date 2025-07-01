@@ -12,17 +12,15 @@ import org.junit.Test;
 
 import java.io.File;
 
-public class CombatTest {
-    protected Board board;
-    protected Player player;
-    protected File level2;
-    private int pX, pY, eX, eY;
+public class CombatTest extends GeneralUnitTest{
+    private int eX, eY;
     private Enemy enemy;
+
     @Before
     public void setUp(){
-        level2 = new File("./DnD_OOP/tests/testLevels/level2.txt");
+        testLevel = new File("./DnD_OOP/tests/testLevels/level2.txt");
         player = new Mage("test player", 60, 300, 5, 300, 40, 40000, 5, 10, Tile.Color.GOLD);
-        board = new LevelInitializer(player).initializeLevel(level2).getBoard();//Assuming levelInitializer works
+        board = new LevelInitializer(player).initializeLevel(testLevel).getBoard();//Assuming levelInitializer works
         pX = player.getX();
         pY = player.getY();
         enemy = ((Enemy)board.getTile(0,1));//We know that tile holds an enemy
