@@ -30,6 +30,7 @@ public class Rouge extends Player {
         }
         return true;
     }
+    @Override
     public String description(){
         return super.description()+String.format("Energy: %d/%d\t%s Energy Cost: %d",currentEnergy,getEnergyMax(), getAbilityName(), cost);
     }
@@ -69,7 +70,7 @@ public class Rouge extends Player {
         displayCallBack.send(String.format("%s cast %s for %d energy.",getName(),this.getAbilityName(), cost));
     }
     @Override
-    public void cantCastMsg(String reason) {
+    protected void cantCastMsg(String reason) {
         displayCallBack.send(String.format("%s tried to cast %s, but %s", getName(), getAbilityName(), reason));
     }
     private void chargeEnergyMsg(int amount){

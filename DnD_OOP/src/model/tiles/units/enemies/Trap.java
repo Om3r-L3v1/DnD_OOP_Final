@@ -22,7 +22,7 @@ public class Trap extends Enemy {
     }
 
     @Override
-    public boolean canMoveTo(Tile target){
+    protected boolean canMoveTo(Tile target){
         return false;
     }
 

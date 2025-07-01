@@ -58,6 +58,7 @@ public class Hunter extends Player {
         target.defend(this, attack, abilityCallback);
     }
 
+    @Override
     public String description(){
         return super.description()+String.format("Arrows: %d\tRange: %d\t",arrowsCount,range);
     }
@@ -97,7 +98,7 @@ public class Hunter extends Player {
         displayCallBack.send(String.format("%s fired an arrow at %s.",getName(),targetName));
     }
     @Override
-    public void cantCastMsg(String reason) {
+    protected void cantCastMsg(String reason) {
         displayCallBack.send(String.format("%s tried to shoot an arrow, but %s",getName(),reason));
     }
     private void restockMsg(int amount){

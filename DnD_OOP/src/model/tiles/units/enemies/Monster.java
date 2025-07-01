@@ -14,7 +14,7 @@ public class Monster extends Enemy {
     }
 
     @Override
-    public boolean canMoveTo(Tile target){
+    protected boolean canMoveTo(Tile target){
         return target.canMoveOn(this);
     }
 
@@ -28,6 +28,7 @@ public class Monster extends Enemy {
             moveRandom();
         }
     }
+    @Override
     public String description(){
         return super.description()+"Vision Range: "+visionRange;
     }

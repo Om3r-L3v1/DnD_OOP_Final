@@ -76,17 +76,13 @@ abstract public class Unit extends Tile {
         return color.wrap(name);
     }
 
-    public int getHealthAmount() {
-        return healthAmount;
-    }
-
-    public void takeDamage(int damageTaken, Unit dealer) {
+    protected void takeDamage(int damageTaken, Unit dealer) {
         this.healthAmount = Math.max(0, healthAmount - damageTaken);
         if(isDead())
             onDeathMsg(dealer);
     }
 
-    public void heal(int healAmount){
+    protected void heal(int healAmount){
         this.healthAmount = Math.min(healthPool, healthAmount + healAmount);
     }
 
@@ -103,16 +99,16 @@ abstract public class Unit extends Tile {
     public abstract void attack(Player p);
     public abstract void attack(Enemy m);
 
-    public abstract boolean canMoveTo(Tile target);
+    protected abstract boolean canMoveTo(Tile target);
 
     protected abstract void onDeathMsg(Unit killer);
-    public void descMsg(){
+    public void descriptionMsg(){
         displayCallBack.send(description());
     }
     protected void onCombatMsg(Unit target){
         displayCallBack.send(String.format("%s engaged in combat with %s.", getName(), target.getName()));
-        descMsg();
-        target.descMsg();
+        descriptionMsg();
+        target.descriptionMsg();
     }
     protected void attackRollMsg(int attack){
         displayCallBack.send(String.format("%s rolled %d attack points.", getName(), attack));

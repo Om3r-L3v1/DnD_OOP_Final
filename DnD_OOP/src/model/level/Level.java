@@ -4,7 +4,6 @@ import model.tiles.units.enemies.Enemy;
 import model.tiles.units.players.Player;
 import utils.callbacks.*;
 
-import java.util.List;
 import java.util.Map;
 
 public class Level {
@@ -48,7 +47,7 @@ public class Level {
 
     private void playerTurn(){
         boardMsg();
-        player.descMsg();
+        player.descriptionMsg();
 
         String action = getInput();
         switch (action) {
@@ -86,19 +85,13 @@ public class Level {
             }
         }
     }
-
-    public Board getBoard(){
-        return board;
-    }
-    public List<Enemy> getEnemies(){return board.getEnemies();}
-    public Player getPlayer(){return player;}
     private void boardMsg(){
         displayCallBack.send(board.toString());
     }
     private void lossMsg(){
         displayCallBack.send("You lost.");
         boardMsg();
-        player.descMsg();
+        player.descriptionMsg();
     }
     private void winMsg(){
         displayCallBack.send("model.level.Level complete!");

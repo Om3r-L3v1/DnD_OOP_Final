@@ -62,7 +62,7 @@ public abstract class Enemy extends Unit {
     }
 
     @Override
-    public void takeDamage(int damageTaken, Unit dealer) {
+    protected void takeDamage(int damageTaken, Unit dealer) {
         super.takeDamage(damageTaken, dealer);
         if (isDead()) {
             board.removeEnemy(this);

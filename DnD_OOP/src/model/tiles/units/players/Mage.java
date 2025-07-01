@@ -50,7 +50,7 @@ public class Mage extends Player {
         while (hits < hitsCount && !inRangeEnemies.isEmpty()) {
             Enemy target = inRangeEnemies.get(rnd.nextInt(inRangeEnemies.size()));
             target.defend(this, spellPower, abilityCallback);
-            if (target.getHealthAmount() == 0)
+            if (target.isDead())
                 inRangeEnemies.remove(target);
             hits++;
         }
@@ -98,7 +98,7 @@ public class Mage extends Player {
         displayCallBack.send(String.format("%s cast %s for %d mana, hitting %d times.",getName(),this.getAbilityName(), manaCost, hitsCount));
     }
     @Override
-    public void cantCastMsg(String reason) {
+    protected void cantCastMsg(String reason) {
         displayCallBack.send(String.format("%s tried to cast %s, but %s", getName(), getAbilityName(), reason));
     }
     private void chargeManaMsg(int amount){

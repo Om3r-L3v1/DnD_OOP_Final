@@ -53,14 +53,14 @@ public abstract class Player extends Unit implements HeroicUnit {
         return false; // model.tiles.units.players.Player will turn into X on death. will never allow move.
     }
     @Override
-    public void takeDamage(int damageTaken, Unit dealer){
+    protected void takeDamage(int damageTaken, Unit dealer){
         super.takeDamage(damageTaken, dealer);
         if(isDead()){
             tile = PLAYER_DEAD_CHAR;
         }
     }
     @Override
-    public boolean canMoveTo(Tile target){
+    protected boolean canMoveTo(Tile target){
         return target.canMoveOn(this);
     }
     @Override
@@ -132,5 +132,5 @@ public abstract class Player extends Unit implements HeroicUnit {
         displayCallBack.send(levelUpString());
     }
 
-    public abstract void cantCastMsg(String reason);
+    protected abstract void cantCastMsg(String reason);
 }

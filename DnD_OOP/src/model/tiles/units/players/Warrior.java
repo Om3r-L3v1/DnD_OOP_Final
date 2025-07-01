@@ -78,7 +78,7 @@ public class Warrior extends Player {
         displayCallBack.send(String.format("%s used %s, healing %d.",getName(),this.getAbilityName(),DEFENCE_HEAL_FACTOR*defence));
     }
     @Override
-    public void cantCastMsg(String reason) {
+    protected void cantCastMsg(String reason) {
         displayCallBack.send(String.format("%s tried to cast %s, but %s", getName(), getAbilityName(), reason));
     }
 
