@@ -36,14 +36,15 @@ public class Hunter extends Player{
         arrowsCount--;
         Random rnd = new Random();
         List<Enemy> closest = new LinkedList<>();
-        int closestRange = -1;
+        int closestRange = range;
         for(Enemy e : board.getEnemies()) {
             int enemyRange = getRange(e);
             if(enemyRange <= range) {
                 if(enemyRange == closestRange)
                     closest.add(e);
-                else if (enemyRange < range) {
+                else if (enemyRange < closestRange) {
                     closest = new LinkedList<>();
+                    closestRange = enemyRange;
                     closest.add(e);
                 }
             }
