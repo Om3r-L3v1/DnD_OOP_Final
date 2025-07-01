@@ -35,10 +35,10 @@ public class TileFactory {
                     Map.entry('D', () -> new Trap('D', "Death model.tiles.units.enemies.Trap",     500,100, 20, 250, 1,10, Tile.Color.ASH_GREY))
             );
     private static final List<Supplier<Player>> PLAYERS = Arrays.asList(
-            () -> new Mage("Melisandre",100,5,1,300,30,15,5,6, Tile.Color.PURPLE),
-            () -> new Mage("Thoros of Myr",250,25,4,150,20,20,3,4, Tile.Color.ORANGE),
             () -> new Warrior("Jon Snow",300,30,4,3, Tile.Color.TEAL),
             () -> new Warrior("The Hound",400,20,6,5, Tile.Color.VIOLET),
+            () -> new Mage("Melisandre",100,5,1,300,30,15,5,6, Tile.Color.PURPLE),
+            () -> new Mage("Thoros of Myr",250,25,4,150,20,20,3,4, Tile.Color.ORANGE),
             () -> new Rouge("Arya Stark", 150,40,2,20, Tile.Color.GREEN),
             () -> new Rouge("Bronn",250,35,3,50, Tile.Color.WHITE),
             () -> new Hunter("Ygritte",220,30,2,6, Tile.Color.GOLD)
