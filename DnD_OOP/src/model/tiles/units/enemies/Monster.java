@@ -8,8 +8,8 @@ import java.util.Random;
 public class Monster extends Enemy {
     protected int visionRange;
 
-    public Monster(char tile, String name, int healthPool, int attack, int defence, int expValue, int visionRange,Color color) {
-        super(tile,name,healthPool,attack,defence,expValue,color);
+    public Monster(char tile, String name, int healthPool, int attack, int defence, int expValue, int visionRange) {
+        super(tile,name,healthPool,attack,defence,expValue);
         this.visionRange = visionRange;
     }
 

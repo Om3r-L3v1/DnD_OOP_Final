@@ -1,0 +1,289 @@
+@startuml
+!theme plain
+top to bottom direction
+skinparam linetype ortho
+skinparam classAttributeIconSize 0
+
+package control {
+  class Game {
+    - player: Player
+    - levelInitializer: LevelInitializer
+    - levelFiles: File[]
+    - factory: TileFactory
+    - playerDescriptions: List<String>
+    + Game(File)
+    + play(): void
+  }
+}
+
+package control.initializers {
+  class LevelInitializer {
+    ~ player: Player
+    ~ tileFactory: TileFactory
+    - charToTile(char, int, int, Board, List<Enemy>): Tile
+    + initializeLevel(File): Level
+    - fileToChars(File): char[][]?
+  }
+
+  class TileFactory {
+    - enemies: Map<Character, Supplier<Enemy>>
+    - players: List<Supplier<Player>>
+    + produceEnemy(char, int, int, DamageCallBack, DamageCallBack, MessageCallBack, Board): Enemy
+    + produceEmpty(int, int): Tile
+    + produceWall(int, int): Tile
+    + producePlayer(int): Player
+    + getDummyPlayers(): List<Player>
+  }
+}
+
+package model.level {
+  class Board {
+    - tiles: Tile[][]
+    - player: Player
+    - enemies: List<Enemy>
+    + removeEnemy(Enemy): void
+    + EnemiesDead(): boolean
+    + init(Tile[][], List<Enemy>): void
+    + toString(): String
+    + swapPlaces(int, int, int, int): void
+  }
+
+  class Level {
+    - levelOver: boolean
+    - scanner: Scanner
+    - player: Player
+    - board: Board
+    - callBack: MessageCallBack
+    + play(): boolean
+    - lossMsg(): void
+    - winMsg(): void
+    - enemyTurn(): void
+    - playerTurn(): void
+    - boardMsg(): void
+  }
+}
+
+package model.tiles {
+  class Tile {
+    # tile: char
+    # color: Color
+    # x: int
+    # y: int
+    + init(int, int): Tile
+    + toString(): String
+    + canMoveOn(Player): boolean
+    + canMoveOn(Monster): boolean
+  }
+
+  class Wall {
+    + canMoveOn(Player): boolean
+    + canMoveOn(Monster): boolean
+  }
+
+  class Empty {
+    + canMoveOn(Player): boolean
+    + canMoveOn(Monster): boolean
+  }
+}
+
+package model.tiles.units {
+  abstract class Unit {
+    # healthAmount: int
+    # attack: int
+    # combatCallback: DamageCallBack
+    # name: String
+    # displayCallBack: MessageCallBack
+    # board: Board
+    # defence: int
+    # abilityCallback: DamageCallBack
+    # healthPool: int
+    + isDead(): boolean
+    + defend(Enemy, int, DamageCallBack): void
+    # attackRollMsg(int): void
+    + init(int, int, Board, MessageCallBack, DamageCallBack, DamageCallBack): Unit
+    + moveRight(): void
+    + defend(Player, int, DamageCallBack): void
+    + moveDown(): void
+    + moveLeft(): void
+    + attack(Enemy): void
+    + description(): String
+    # defenceRollMsg(int): void
+    + moveUp(): void
+    # canMoveTo(Tile): boolean
+    + attack(Player): void
+    # onDeathMsg(Unit): void
+    # takeDamage(int, Unit): void
+    # descMsg(): void
+    # onCombatMsg(Unit): void
+    + heal(int): void
+  }
+
+  abstract class Player {
+    # experience: int
+    # level: int
+    + attack(Enemy): void
+    # levelUp(): void
+    + canMoveOn(Player): boolean
+    + description(): String
+    + cantCastMsg(String): void
+    + descriptionMsg(): void
+    + castAbility(): void
+    + gameTick(): void
+    + defend(Player, int, DamageCallBack): void
+    + gainExperience(int): void
+    # canMoveTo(Tile): boolean
+    # levelUpString(): String
+    # takeDamage(int, Unit): void
+    # onDeathMsg(Unit): void
+    + attack(Player): void
+    # onLevelUpMsg(): void
+    + canMoveOn(Monster): boolean
+    # cast(): void
+    + defend(Enemy, int, DamageCallBack): void
+    # canCast(): boolean
+  }
+
+ abstract class Enemy {
+    ~ expValue: int
+    + defend(Player, int, DamageCallBack): void
+    + takeTurn(): void
+    # takeDamage(int, Unit): void
+    + canMoveOn(Monster): boolean
+    + attack(Player): void
+    + description(): String
+    + attack(Enemy): void
+    + canMoveOn(Player): boolean
+    + defend(Enemy, int, DamageCallBack): void
+    # onDeathMsg(Unit): void
+  }
+
+  class Trap {
+    - invisibalityTime: int
+    - ticksCount: int
+    - visibalityTime: int
+    - visible: boolean
+    + takeTurn(): void
+    # canMoveTo(Tile): boolean
+    + toString(): String
+  }
+
+  class Monster {
+    # visionRange: int
+    # moveRandom(): void
+    # canMoveTo(Tile): boolean
+    + description(): String
+    + takeTurn(): void
+    # moveChase(): void
+  }
+
+  class Boss {
+    - combatTicks: int
+    - abilityFreq: int
+    + takeTurn(): void
+    + castAbility(): void
+    + onCastMsg(String): void
+  }
+
+  class Hunter {
+    - range: int
+    - ticksCount: int
+    - arrowsCount: int
+    # canCast(): boolean
+    # levelUp(): void
+    # cast(): void
+    + description(): String
+    + onCastMsg(String): void
+    + cantCastMsg(String): void
+    + gameTick(): void
+  }
+
+  class Mage {
+    - abilityRange: int
+    - currentMana: int
+    - hitsCount: int
+    - manaPool: int
+    - spellPower: int
+    + gameTick(): void
+    + onCastMsg(String): void
+    # canCast(): boolean
+    # levelUpString(): String
+    + description(): String
+    # levelUp(): void
+    + cantCastMsg(String): void
+    - chargeMana(int): void
+  }
+
+  class Rouge {
+    - currentEnergy: int
+    # canCast(): boolean
+    + onCastMsg(String): void
+    + cast(): void
+    + cantCastMsg(String): void
+    + description(): String
+    # levelUp(): void
+    + gameTick(): void
+  }
+
+  class Warrior {
+    - abilityCooldown: int
+    - remainingCooldown: int
+    # canCast(): boolean
+    + description(): String
+    + gameTick(): void
+    # cast(): void
+    + cantCastMsg(String): void
+    # levelUp(): void
+    + onCastMsg(String): void
+  }
+
+  interface HeroicUnit {
+    + castAbility(): void
+    + onCastMsg(String): void
+  }
+}
+
+package utils.callbacks {
+  interface DamageCallBack {
+    + damage(String, String, int): void
+  }
+
+  interface MessageCallBack {
+    + send(String): void
+  }
+
+  interface InputCallBack {
+    + getInput(Map<String, String>): String
+  }
+}
+
+package view {
+  class CLI {
+    + display(String): void
+    + combatDamage(String, String, int): void
+    + abilityDamage(String, String, int): void
+    + gameResult(boolean): void
+    + playerInput(List<String>): int
+  }
+}
+
+class Main {
+  + main(String[]): void
+}
+
+' Inheritance arrows
+Boss              -[#008200,dashed]-^  HeroicUnit
+Boss              -[#000082,plain]-^  Monster
+Empty             -[#000082,plain]-^  Tile
+Enemy             -[#000082,plain]-^  Unit
+Hunter            -[#000082,plain]-^  Player
+Mage              -[#000082,plain]-^  Player
+Monster           -[#000082,plain]-^  Enemy
+Player            -[#008200,dashed]-^  HeroicUnit
+Player            -[#000082,plain]-^  Unit
+Rouge             -[#000082,plain]-^  Player
+Trap              -[#000082,plain]-^  Enemy
+Unit              -[#000082,plain]-^  Tile
+Wall              -[#000082,plain]-^  Tile
+Warrior           -[#000082,plain]-^  Player
+
+@enduml
