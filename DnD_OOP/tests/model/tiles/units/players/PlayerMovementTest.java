@@ -10,21 +10,27 @@ import org.junit.Test;
 import java.io.File;
 
 
-public class PlayerMovementTest {
-    private Board board;
-    private Player player;
-    private File level2;
+public class PlayerMovementTest{
+    protected Board board;
+    protected Player player;
+    protected File level2;
+    private int startX,startY;
 
     @Before
     public void setUp(){
         level2 = new File("./DnD_OOP/tests/testLevels/level2.txt");
         player = new Mage("test player", 10, 0, 1000, 300, 40, 40000, 5, 10, Tile.Color.GOLD);
         board = new LevelInitializer(player).initializeLevel(level2).getBoard();//Assuming levelInitializer works
-    }
+        startX = player.getX();
+        startY = player.getY();
 
+        //....
+        //z.@.
+        //....
+        //..#.
+    }
     @Test
     public void moveUpTest(){
-        int startX = player.getX(), startY = player.getY();
 
         player.moveUp();
 
@@ -34,7 +40,6 @@ public class PlayerMovementTest {
     }
     @Test
     public void moveDownTest(){
-        int startX = player.getX(), startY = player.getY();
 
         player.moveDown();
 
@@ -44,7 +49,6 @@ public class PlayerMovementTest {
     }
     @Test
     public void moveLeftTest(){
-        int startX = player.getX(), startY = player.getY();
 
         player.moveLeft();
 
@@ -54,7 +58,6 @@ public class PlayerMovementTest {
     }
     @Test
     public void moveRightTest(){
-        int startX = player.getX(), startY = player.getY();
 
         player.moveRight();
 
@@ -65,7 +68,6 @@ public class PlayerMovementTest {
 
     @Test
     public void wallBlockTest(){
-        int startX = player.getX(), startY = player.getY();
 
         player.moveDown();
         player.moveDown();
@@ -77,7 +79,6 @@ public class PlayerMovementTest {
 
     @Test
     public void enemyBlockTest(){
-        int startX = player.getX(), startY = player.getY();
 
         player.moveLeft();
         player.moveLeft();
@@ -89,7 +90,6 @@ public class PlayerMovementTest {
 
     @Test
     public void outOfBoundsHeightBlockTest(){
-        int startX = player.getX(), startY = player.getY();
 
         player.moveUp();
         player.moveUp();
@@ -101,7 +101,6 @@ public class PlayerMovementTest {
 
     @Test
     public void outOfBoundsWidthBlockTest(){
-        int startX = player.getX(), startY = player.getY();
 
         player.moveRight();
         player.moveRight();

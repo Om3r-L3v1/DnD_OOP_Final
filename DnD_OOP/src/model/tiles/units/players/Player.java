@@ -26,6 +26,7 @@ public abstract class Player extends Unit implements HeroicUnit {
         this.level = 1;
     }
 
+    public int getLevel(){return level;}
     protected int getLevelUpExp(){return LEVEL_UP_EXP;}
     protected int getHealthPoolGain(){return HEALTH_POOL_GAIN;}
     protected int getAttackGain(){return ATTACK_GAIN;}
@@ -92,7 +93,6 @@ public abstract class Player extends Unit implements HeroicUnit {
     public void gainExperience(int expValue){
         experience += expValue;
         while(experience >= getLevelUpExp() * level){
-            onLevelUpMsg();
             levelUp();
         }
     }
@@ -107,9 +107,10 @@ public abstract class Player extends Unit implements HeroicUnit {
         healthAmount = healthPool;
         attack += getAttackGain() * level;
         defence += getDefenceGain() * level;
+        onLevelUpMsg();
     }
     protected String levelUpString(){
-        return String.format("%s reached model.level %d: +%d Health, +%d Attack, +%d Defense"
+        return String.format("%s reached level %d: +%d Health, +%d Attack, +%d Defense"
                 ,getName(), level, getHealthPoolGain()*level, getAttackGain()*level, getDefenceGain()*level);
     }
 
