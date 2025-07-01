@@ -27,7 +27,7 @@ public class Rouge extends Player {
         return true;
     }
     public String description(){
-        return super.description()+String.format("Energy: %d/%d\t",currentEnergy,getEnergyMax());
+        return super.description()+String.format("Energy: %d/%d\t%s Energy Cost: %d",currentEnergy,getEnergyMax(), getAbilityName(), cost);
     }
     @Override
     public String getAbilityName(){
@@ -47,22 +47,34 @@ public class Rouge extends Player {
 
     @Override
     public void gameTick() {
-        currentEnergy = Math.min(ENERGY_MAX, currentEnergy + ENERGY_REGEN);
+        if(currentEnergy < ENERGY_MAX){
+            currentEnergy = Math.min(ENERGY_MAX, currentEnergy + ENERGY_REGEN);
+            chargeEnergyMsg(ENERGY_REGEN);
+        }
     }
 
     @Override
     protected void levelUp(){
         super.levelUp();
         currentEnergy = getEnergyMax();
+        fullEnergyMsg();
     }
 
     @Override
     public void onCastMsg(String targetName) {
-        displayCallBack.send(String.format("%s cast %s.",getName(),this.getAbilityName()));
+        displayCallBack.send(String.format("%s cast %s for %d energy.",getName(),this.getAbilityName(), cost));
     }
     @Override
     public void cantCastMsg(String reason) {
         displayCallBack.send(String.format("%s tried to cast %s, but %s", getName(), getAbilityName(), reason));
+    }
+    private void chargeEnergyMsg(int amount){
+        displayCallBack.send(String.format("%s regained %d energy.", getName(), amount));
+        if(currentEnergy == ENERGY_MAX)
+            fullEnergyMsg();
+    }
+    private void fullEnergyMsg(){
+        displayCallBack.send(String.format("%s has full energy!.", getName()));
     }
 }
 

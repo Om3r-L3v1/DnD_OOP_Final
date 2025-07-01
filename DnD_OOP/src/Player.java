@@ -85,8 +85,8 @@ public abstract class Player extends Unit implements HeroicUnit {
     public void gainExperience(int expValue){
         experience += expValue;
         while(experience >= getLevelUpExp() * level){
-            levelUp();
             onLevelUpMsg();
+            levelUp();
         }
     }
     public String description(){

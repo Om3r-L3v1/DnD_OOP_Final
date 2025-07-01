@@ -55,11 +55,11 @@ public class Mage extends Player{
     @Override
     protected String levelUpString(){
         return super.levelUpString() + String.format(", +%d Maximum Mana, +%d Spell Power"
-                ,getManaPoolGain()*level,getSpellPowerGain()*level) + String.format("\nRestored %d mana.", getManaCharge());
+                ,getManaPoolGain()*level,getSpellPowerGain()*level);
     }
     @Override
     public String description(){
-        return super.description()+String.format("Mana: %d/%d\tSpell Power: %d\tMana Cost: %d\t Hit Count: %d\t Range: %d\t"
+        return super.description()+String.format("Mana: %d/%d\tSpell Power: %d\tMana Cost: %d\tHit Count: %d\tRange: %d\t"
                 ,currentMana,manaPool,spellPower, manaCost, hitsCount, abilityRange );
     }
     @Override
@@ -72,7 +72,8 @@ public class Mage extends Player{
     }
     @Override
     public void gameTick(){
-        chargeMana(level);
+        if(currentMana < manaPool)
+            chargeMana(level);
     }
 
     @Override
@@ -85,14 +86,23 @@ public class Mage extends Player{
 
     private void chargeMana(int amount){
         currentMana = Math.min(manaPool, currentMana + amount);
+        chargeManaMsg(amount);
     }
 
     @Override
     public void onCastMsg(String targetName) {
-        displayCallBack.send(String.format("%s cast %s.",getName(),this.getAbilityName()));
+        displayCallBack.send(String.format("%s cast %s for %d mana, hitting %d times.",getName(),this.getAbilityName(), manaCost, hitsCount));
     }
     @Override
     public void cantCastMsg(String reason) {
         displayCallBack.send(String.format("%s tried to cast %s, but %s", getName(), getAbilityName(), reason));
+    }
+    private void chargeManaMsg(int amount){
+        displayCallBack.send(String.format("%s restored %d mana.", getName(), amount));
+        if(currentMana == manaPool)
+            fullManaMsg();
+    }
+    private void fullManaMsg(){
+        displayCallBack.send(String.format("%s has full mana!.", getName()));
     }
 }

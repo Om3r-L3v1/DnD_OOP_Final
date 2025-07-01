@@ -74,22 +74,20 @@ public class Hunter extends Player{
     public void gameTick() {
         if (ticksCount == RESTOCK_TICKS) {
             ticksCount = 0;
-            arrowsCount += ARROWS_RESTOCK * level;
-
+            restock(ARROWS_RESTOCK * level);
         }
         else ticksCount++;
     }
 
     @Override
-    protected String levelUpString(){
-        return super.levelUpString() + String.format("\nRestocked %d Arrows.", ARROWS_LEVELUP * level);
-    }
-    @Override
     protected void levelUp(){
         super.levelUp();
-        arrowsCount += ARROWS_LEVELUP * level;
+        restock(ARROWS_LEVELUP * level);
     }
-
+    private void restock(int amount){
+        arrowsCount += amount;
+        restockMsg(amount);
+    }
     @Override
     public void onCastMsg(String targetName) {
         displayCallBack.send(String.format("%s fired an arrow at %s.",getName(),targetName));
@@ -97,5 +95,11 @@ public class Hunter extends Player{
     @Override
     public void cantCastMsg(String reason) {
         displayCallBack.send(String.format("%s tried to shoot an arrow, but %s",getName(),reason));
+    }
+    private void restockMsg(int amount){
+        String pluralS = "s";
+        if(amount == 1)
+            pluralS = "";
+        displayCallBack.send(String.format("%s got %d more arrow%s.", getName(), amount,pluralS));
     }
 }
