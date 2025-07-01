@@ -18,7 +18,7 @@ public class RougeAbilityTest extends GeneralUnitTest {
     @Before
     public void setUp(){
         testLevel = new File("./DnD_OOP/tests/testLevels/level4.txt");
-        player = new Rouge("test rouge", 10000, 3000, 500, 80, Tile.Color.GOLD);
+        player = new Rouge("test rouge", 10000, 3000, 500, 80);
         board = new LevelInitializer(player).initializeLevel(testLevel).getBoard();//Assuming levelInitializer works
         pX = player.getX();//2
         pY = player.getY();//2

@@ -18,7 +18,7 @@ public class BossAbilityTest extends GeneralUnitTest {
     @Before
     public void setUp(){
         testLevel = new File("./DnD_OOP/tests/testLevels/level5.txt");
-        player = new Warrior("test player", 10, 3, 0, 5, Tile.Color.GOLD);
+        player = new Warrior("test player", 10, 3, 0, 5);
         board = new LevelInitializer(player).initializeLevel(testLevel).getBoard();//Assuming levelInitializer works
         pX = player.getX();//2
         pY = player.getY();//2

@@ -20,7 +20,7 @@ public class CombatTest extends GeneralUnitTest{
     @Before
     public void setUp(){
         testLevel = new File("./DnD_OOP/tests/testLevels/level2.txt");
-        player = new Rouge("test player", 60, 300, 5, 10,Tile.Color.GOLD);
+        player = new Rouge("test player", 60, 300, 5, 10);
         board = new LevelInitializer(player).initializeLevel(testLevel).getBoard();//Assuming levelInitializer works
         pX = player.getX();
         pY = player.getY();

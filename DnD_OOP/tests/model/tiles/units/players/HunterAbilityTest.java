@@ -19,7 +19,7 @@ public class HunterAbilityTest extends GeneralUnitTest {
     @Before
     public void setUp(){
         testLevel = new File("./DnD_OOP/tests/testLevels/level5.txt");
-        player = new Hunter("test hunter", 10000, 90, 500, 2, Tile.Color.GOLD);
+        player = new Hunter("test hunter", 10000, 90, 500, 2);
         board = new LevelInitializer(player).initializeLevel(testLevel).getBoard();//Assuming levelInitializer works
         pX = player.getX();//2
         pY = player.getY();//2

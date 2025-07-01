@@ -16,7 +16,7 @@ public class PlayerMovementTest extends GeneralUnitTest {
     @Before
     public void setUp(){
         testLevel = new File("./DnD_OOP/tests/testLevels/level2.txt");
-        player = new Mage("test player", 10, 0, 1000, 300, 40, 40000, 5, 10, Tile.Color.GOLD);
+        player = new Mage("test player", 10, 0, 1000, 300, 40, 40000, 5, 10);
         board = new LevelInitializer(player).initializeLevel(testLevel).getBoard();//Assuming levelInitializer works
         pX = player.getX();
         pY = player.getY();

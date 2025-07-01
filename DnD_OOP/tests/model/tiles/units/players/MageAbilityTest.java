@@ -18,7 +18,7 @@ public class MageAbilityTest extends GeneralUnitTest {
     @Before
     public void setUp(){
         testLevel = new File("./DnD_OOP/tests/testLevels/level4.txt");
-        player = new Mage("test mage", 10000, 3, 500, 2000,500,30000, 2,3, Tile.Color.GOLD);
+        player = new Mage("test mage", 10000, 3, 500, 2000,500,30000, 2,3);
         board = new LevelInitializer(player).initializeLevel(testLevel).getBoard();//Assuming levelInitializer works
         pX = player.getX();//2
         pY = player.getY();//2

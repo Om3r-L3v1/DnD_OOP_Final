@@ -18,7 +18,7 @@ public class LevelInitializerTest {
 
     @Before
     public void setUp(){
-        testPlayer = new Warrior("Test Player", 10, 10000, 1000, 3, Tile.Color.GREEN);
+        testPlayer = new Warrior("Test Player", 10, 10000, 1000, 3);
         levelInitializer = new LevelInitializer(testPlayer);
         level1 = new File("./DnD_OOP/tests/testLevels/level1.txt");
     }
@@ -46,17 +46,9 @@ public class LevelInitializerTest {
                 "#################################################\n" ;
 
         Level level = levelInitializer.initializeLevel(level1);
-        String actualBoard = "";
         Board b = level.getBoard();
-        //colorless board
-        for (int y = 0; y < b.height(); y++) {
-            for (int x = 0; x < b.width(); x++) {
-                actualBoard += b.getTile(x,y).getTile();
-            }
-            actualBoard += "\n";
-        }
 
-        Assert.assertEquals(expectedBoard, actualBoard);
+        Assert.assertEquals(expectedBoard, b.toString());
     }
 
     @Test

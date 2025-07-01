@@ -17,7 +17,7 @@ public class WarriorAbilityTest extends GeneralUnitTest {
     @Before
     public void setUp(){
         testLevel = new File("./DnD_OOP/tests/testLevels/level4.txt");
-        player = new Warrior("test warrior", 10000, 3, 500, 5, Tile.Color.GOLD);
+        player = new Warrior("test warrior", 10000, 3, 500, 5);
         board = new LevelInitializer(player).initializeLevel(testLevel).getBoard();//Assuming levelInitializer works
         pX = player.getX();//2
         pY = player.getY();//2
