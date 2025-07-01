@@ -36,6 +36,8 @@ abstract public class Unit extends Tile {
         return this;
     }
 
+    public int getCurrentHealth(){return healthAmount;}
+
     public void moveUp() {
         if(y != 0){
             Tile target = board.getTile(x, y-1);

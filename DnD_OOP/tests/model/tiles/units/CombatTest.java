@@ -6,6 +6,7 @@ import model.tiles.Tile;
 import model.tiles.units.enemies.Enemy;
 import model.tiles.units.players.Mage;
 import model.tiles.units.players.Player;
+import model.tiles.units.players.Rouge;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -19,7 +20,7 @@ public class CombatTest extends GeneralUnitTest{
     @Before
     public void setUp(){
         testLevel = new File("./DnD_OOP/tests/testLevels/level2.txt");
-        player = new Mage("test player", 60, 300, 5, 300, 40, 40000, 5, 10, Tile.Color.GOLD);
+        player = new Rouge("test player", 60, 300, 5, 10,Tile.Color.GOLD);
         board = new LevelInitializer(player).initializeLevel(testLevel).getBoard();//Assuming levelInitializer works
         pX = player.getX();
         pY = player.getY();

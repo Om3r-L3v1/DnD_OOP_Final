@@ -20,7 +20,7 @@ public class MonsterMovementTest extends GeneralUnitTest {
     @Before
     public void setUp(){
         testLevel = new File("./DnD_OOP/tests/testLevels/level3.txt");
-        player = new Mage("test player", 60, 300, 5, 300, 40, 40000, 5, 10, Tile.Color.GOLD);
+        player = new Mage("test player", 1000, 300, 5, 300, 40, 40000, 5, 10, Tile.Color.GOLD);
         board = new LevelInitializer(player).initializeLevel(testLevel).getBoard();//Assuming levelInitializer works
         pX = player.getX();//2
         pY = player.getY();//2
