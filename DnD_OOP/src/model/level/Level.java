@@ -99,4 +99,8 @@ public class Level {
     private String getInput(){
         return inputCallBack.getInput(validActions);
     }
+
+    public Board getBoard(){
+        return board;
+    }
 }

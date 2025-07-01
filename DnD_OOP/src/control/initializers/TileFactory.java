@@ -31,7 +31,7 @@ public class TileFactory {
 
                     // ────── Traps ──────
                     Map.entry('B', () -> new Trap('B', "Bonus model.tiles.units.enemies.Trap",      1,  1,  1, 250, 1, 5)),
-                        Map.entry('Q', () -> new Trap('Q', "Queen's model.tiles.units.enemies.Trap",   250, 50, 10, 100, 3, 7)),
+                    Map.entry('Q', () -> new Trap('Q', "Queen's model.tiles.units.enemies.Trap",   250, 50, 10, 100, 3, 7)),
                     Map.entry('D', () -> new Trap('D', "Death model.tiles.units.enemies.Trap",     500,100, 20, 250, 1,10))
             );
     private static final List<Supplier<Player>> PLAYERS = Arrays.asList(

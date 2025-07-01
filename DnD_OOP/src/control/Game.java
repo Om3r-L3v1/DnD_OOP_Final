@@ -20,7 +20,7 @@ public class Game {
         factory = new TileFactory();
         levelFiles = folder.listFiles();
         List<Player> dummyPlayers = factory.getDummyPlayers();
-        playerDescriptions = dummyPlayers.stream().map(p -> p.description()).toList();
+        playerDescriptions = dummyPlayers.stream().map(Player::description).toList();
     }
 
     public void play(){
