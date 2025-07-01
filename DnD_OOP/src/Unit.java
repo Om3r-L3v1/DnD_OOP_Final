@@ -9,11 +9,11 @@ abstract public class Unit extends Tile {
     protected DamageCallBack abilityCallback;
     protected DamageCallBack combatCallback;
 
-    public Unit(char tile, String name, int healthPool, int healthAmount, int attack, int defence, Color color){
+    public Unit(char tile, String name, int healthPool, int attack, int defence, Color color){
         super(tile,color);
         this.name = name;
-        this.healthAmount = healthAmount;
         this.healthPool = healthPool;
+        this.healthAmount = healthPool;
         this.attack = attack;
         this.defence = defence;
     }

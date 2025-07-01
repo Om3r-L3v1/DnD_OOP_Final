@@ -6,13 +6,17 @@ public class Hunter extends Player{
     private static final String HUNTER_ABILITY = "Shoot";
     private static final int ATTACK_EXTRA_GAIN = 2;
     private static final int DEFENCE_EXTRA_GAIN = 1;
+    private static final int RESTOCK_TICKS = 10;
+    private static final int ARROWS_RESTOCK = 1;
+    private static final int ARROWS_LEVELUP = 10;
+
     private int range;
     private int arrowsCount;
     private int ticksCount;
 
-    public Hunter(String name, int healthPool, int healthAmount, int attack, int defence,
+    public Hunter(String name, int healthPool, int attack, int defence,
     int range,Color color) {
-        super(name, healthPool, healthAmount, attack, defence,color);
+        super(name, healthPool, attack, defence,color);
         this.range = range;
         this.arrowsCount = 10 * level;
         this.ticksCount = 0;
@@ -32,14 +36,15 @@ public class Hunter extends Player{
         arrowsCount--;
         Random rnd = new Random();
         List<Enemy> closest = new LinkedList<>();
-        int closestRange = -1;
+        int closestRange = range;
         for(Enemy e : board.getEnemies()) {
             int enemyRange = getRange(e);
             if(enemyRange <= range) {
                 if(enemyRange == closestRange)
                     closest.add(e);
-                else if (enemyRange < range) {
+                else if (enemyRange < closestRange) {
                     closest = new LinkedList<>();
+                    closestRange = enemyRange;
                     closest.add(e);
                 }
             }
@@ -50,7 +55,7 @@ public class Hunter extends Player{
     }
 
     public String description(){
-        return super.description()+String.format("Arrows: %d\tRange: %d\t",arrowsCount,range );
+        return super.description()+String.format("Arrows: %d\tRange: %d\t",arrowsCount,range);
     }
     @Override
     protected boolean canCast(){
@@ -67,10 +72,9 @@ public class Hunter extends Player{
 
     @Override
     public void gameTick() {
-        if (ticksCount == 10) {
+        if (ticksCount == RESTOCK_TICKS) {
             ticksCount = 0;
-            arrowsCount += level;
-
+            restock(ARROWS_RESTOCK * level);
         }
         else ticksCount++;
     }
@@ -78,9 +82,12 @@ public class Hunter extends Player{
     @Override
     protected void levelUp(){
         super.levelUp();
-        arrowsCount += 10 * level;
+        restock(ARROWS_LEVELUP * level);
     }
-
+    private void restock(int amount){
+        arrowsCount += amount;
+        restockMsg(amount);
+    }
     @Override
     public void onCastMsg(String targetName) {
         displayCallBack.send(String.format("%s fired an arrow at %s.",getName(),targetName));
@@ -88,5 +95,11 @@ public class Hunter extends Player{
     @Override
     public void cantCastMsg(String reason) {
         displayCallBack.send(String.format("%s tried to shoot an arrow, but %s",getName(),reason));
+    }
+    private void restockMsg(int amount){
+        String pluralS = "s";
+        if(amount == 1)
+            pluralS = "";
+        displayCallBack.send(String.format("%s got %d more arrow%s.", getName(), amount,pluralS));
     }
 }

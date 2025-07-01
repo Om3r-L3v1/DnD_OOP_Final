@@ -10,6 +10,8 @@ public class LevelInitializer {
     private static final DamageCallBack COMBAT_CALLBACK = CLI::combatDamage;
     private static final DamageCallBack ABILITY_CALLBACK = CLI::abilityDamage;
     private static final MessageCallBack DISPLAY_CALLBACK = CLI::display;
+    private static final InputCallBack INPUT_CALLBACK = CLI::actionInput;
+
     public LevelInitializer(Player p) {
         this.player = p;
     }
@@ -24,7 +26,7 @@ public class LevelInitializer {
             }
         }
         board.init(tiles, enemies);
-        return new Level(player, board,DISPLAY_CALLBACK);
+        return new Level(player, board,DISPLAY_CALLBACK, INPUT_CALLBACK);
     }
     private Tile charToTile(char c, int x, int y,Board board,List<Enemy> enemies) {
         TileFactory tileFactory = new TileFactory();

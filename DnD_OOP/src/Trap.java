@@ -1,15 +1,16 @@
 public class Trap extends Enemy {
     private final int ATTACK_RANGE = 2;
-    private int visibalityTime;
-    private int invisibalityTime;
+
+    private int visibilityTime;
+    private int invisibilityTime;
     private int ticksCount;
     private boolean visible;
 
-    public Trap(char tile, String name, int healthPool, int healthAmount, int attack, int defence, int expValue,
-                   int visibalityTime, int invisibalityTime, Color color) {
-        super(tile,name,healthPool,healthAmount,attack,defence,expValue,color);
-        this.visibalityTime = visibalityTime;
-        this.invisibalityTime = invisibalityTime;
+    public Trap(char tile, String name, int healthPool, int attack, int defence, int expValue,
+                   int visibilityTime, int invisibilityTime, Color color) {
+        super(tile,name,healthPool,attack,defence,expValue,color);
+        this.visibilityTime = visibilityTime;
+        this.invisibilityTime = invisibilityTime;
         this.visible = true;
         this.ticksCount = 0;
     }
@@ -21,8 +22,8 @@ public class Trap extends Enemy {
 
     @Override
     public void takeTurn() {
-        visible = ticksCount < visibalityTime;
-        if(ticksCount == (visibalityTime + invisibalityTime))
+        visible = ticksCount < visibilityTime;
+        if(ticksCount == (visibilityTime + invisibilityTime))
             ticksCount = 0;
         else
             ticksCount++;

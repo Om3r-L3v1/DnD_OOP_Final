@@ -15,9 +15,9 @@ public class Mage extends Player{
     private int abilityRange;
 
 
-    public Mage(String name, int healthPool, int healthAmount, int attack, int defence,
+    public Mage(String name, int healthPool, int attack, int defence,
                 int manaPool, int manaCost, int spellPower, int hitsCount, int abilityRange, Color color) {
-        super(name, healthPool, healthAmount, attack, defence, color);
+        super(name, healthPool, attack, defence, color);
 
         this.manaPool = manaPool;
         this.currentMana = getManaCharge();
@@ -59,7 +59,8 @@ public class Mage extends Player{
     }
     @Override
     public String description(){
-        return super.description()+String.format("Mana: %d/%d\tSpell Power: %d\t",currentMana,manaPool,spellPower );
+        return super.description()+String.format("Mana: %d/%d\tSpell Power: %d\tMana Cost: %d\tHit Count: %d\tRange: %d\t"
+                ,currentMana,manaPool,spellPower, manaCost, hitsCount, abilityRange );
     }
     @Override
     protected boolean canCast(){
@@ -71,7 +72,8 @@ public class Mage extends Player{
     }
     @Override
     public void gameTick(){
-        chargeMana(level);
+        if(currentMana < manaPool)
+            chargeMana(level);
     }
 
     @Override
@@ -84,14 +86,23 @@ public class Mage extends Player{
 
     private void chargeMana(int amount){
         currentMana = Math.min(manaPool, currentMana + amount);
+        chargeManaMsg(amount);
     }
 
     @Override
     public void onCastMsg(String targetName) {
-        displayCallBack.send(String.format("%s cast %s.",getName(),this.getAbilityName()));
+        displayCallBack.send(String.format("%s cast %s for %d mana, hitting %d times.",getName(),this.getAbilityName(), manaCost, hitsCount));
     }
     @Override
     public void cantCastMsg(String reason) {
         displayCallBack.send(String.format("%s tried to cast %s, but %s", getName(), getAbilityName(), reason));
+    }
+    private void chargeManaMsg(int amount){
+        displayCallBack.send(String.format("%s restored %d mana.", getName(), amount));
+        if(currentMana == manaPool)
+            fullManaMsg();
+    }
+    private void fullManaMsg(){
+        displayCallBack.send(String.format("%s has full mana!.", getName()));
     }
 }
