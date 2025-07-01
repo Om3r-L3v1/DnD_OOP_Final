@@ -1,3 +1,5 @@
+import control.Game;
+
 import java.io.File;
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
