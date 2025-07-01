@@ -5,7 +5,7 @@ import model.tiles.Tile;
 import model.tiles.units.players.Player;
 
 public class Trap extends Enemy {
-    private final int ATTACK_RANGE = 2;
+    private static final int ATTACK_RANGE = 2;
 
     private int visibilityTime;
     private int invisibilityTime;

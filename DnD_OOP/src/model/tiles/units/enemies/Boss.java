@@ -5,6 +5,7 @@ import model.tiles.units.players.Player;
 
 public class Boss extends Monster implements HeroicUnit {
     private static final String BOSS_ABILITY = "Shoebodybop";
+
     private int abilityFreq;
     private int combatTicks;
 
