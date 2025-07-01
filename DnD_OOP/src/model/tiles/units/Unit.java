@@ -46,7 +46,7 @@ abstract public class Unit extends Tile {
     }
 
     public void moveDown() {
-        if(y != board.height()){
+        if(y < board.height() - 1){
             Tile target = board.getTile(x, y+1);
             if(canMoveTo(target)){
                 board.swapPlaces(x,y, x,y+1);
@@ -64,7 +64,7 @@ abstract public class Unit extends Tile {
     }
 
     public void moveRight() {
-        if(x != board.width()){
+        if(x < board.width() - 1){
             Tile target = board.getTile(x+1, y);
             if(canMoveTo(target)){
                 board.swapPlaces(x,y,x+1,y);
